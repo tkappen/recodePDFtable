@@ -19,15 +19,52 @@ baseExpr <- function(dataFrame = FALSE) {
 		alt = FALSE)
 	i <- i+1
 
+	##############
+	####  (x)  ####
+	# (x) or (x)%
+	g[i,] <- list(group = "(x)", expr = paste(
+		"^\\s?[(]SD\\s?\\=?\\s?",	# Expression within brackets
+		"\\d+([.]\\d+)?\\)\\s?$", 	# Number in brackets
+		sep=""),
+		type = "(SD_x)",
+		alt = FALSE)
+	i <- i+1
+
+	g[i,] <- list(group = "(x)", expr = paste(
+		"^\\s?[(]\\s?\\=?\\s?",		# Expression within brackets
+		"\\d+([.]\\d+)?\\s?", 		# Number in brackets
+		"[[:punct:]]?\\)\\s?$",		# Possible % or something like that
+		sep=""),
+		type = "(x%)",
+		alt = FALSE)
+	i <- i+1
+
+	g[i,] <- list(group = "(x)", paste(
+		"^\\s?[(]SD5\\s?",		# Expression within brackets
+		"\\d+([.]\\d+)?\\)\\s?$", 	# Number in brackets
+		sep=""),
+		type = "(SD5_x)",
+		alt = TRUE)
+	i <- i+1
+
 	#################
 	####  x_(x)  ####
 	# xx.x (xx.x) or xx.x (xx.x%)
 	g[i,] <- list(group = "x_(x)", expr = paste(
-		"^\\s?\\d+([.]\\d+)?", 			# Number before brackets
+		"^\\s?\\d+([.]\\d+)?",		# Number before brackets
 		"\\s[(]\\d+([.]\\d+)?",		# Number after brackets
 		"[[:punct:]]?\\)\\s?$",		# Possible % or something like that
 		sep=""),
 		type = "x_(x[%])",
+		alt = FALSE)
+	i <- i+1
+
+	g[i,] <- list(group = "x_(x)", expr = paste(
+		"^\\s?\\d+([.]\\d+)?",			# Number before brackets
+		"\\s[(]\\d+([.]\\d+)?",			# Number after brackets
+		"\\)[[:alnum:]]*\\s?\\w+$",		# Possible word after 
+		sep=""),
+		type = "x_(x)_abc",
 		alt = FALSE)
 	i <- i+1
 
@@ -43,6 +80,63 @@ baseExpr <- function(dataFrame = FALSE) {
 		type = "x_(x-x)",
 		alt = FALSE)
 	i <- i+1
+
+	# Find xx.x xx.x-xx.x with or without comma, any dash or hyphen (I hope)	
+	g[i,] <- list(group = "x_(x_x)", expr = paste(
+		"^\\s?\\d+([.]\\d+)?\\,?",			# Number before 
+		"\\s\\d+([.]\\d+)?",			# First Number of range
+		"[\\p{Pd}\\–\\—\\?\\-]",		# Separator (dash)
+		"\\d+([.]\\d+)?\\s?$",			# Second Number of range
+		sep=""),
+		type = "x_x-x",
+		alt = FALSE)
+	i <- i+1
+
+
+	# Find xx.x (xx.x to xx.x) 	
+	g[i,] <- list(group = "x_(x_x)", expr = paste(
+		"^\\s?\\d+([.]\\d+)?",			# Number before brackets
+		"\\s\\(\\d+([.]\\d+)?",			# First Number after brackets
+		"\\sto",					# Separator 'to' within brackets
+		"\\s\\d+([.]\\d+)?\\)\\s?$",		# Second Number after brackets
+		sep=""),
+		type = "x_(xtox)",
+		alt = FALSE)
+	i <- i+1
+
+	# Find xx.x [xx.x - xx.x] 	
+	g[i,] <- list(group = "x_(x_x)", expr = paste(
+		"^\\s?\\d+([.]\\d+)?",			# Number before brackets
+		"\\s\\[\\d+([.]\\d+)?",			# First Number after brackets
+		"\\s?[\\p{Pd}\\–\\—\\?\\-]",		# Separator (dash) within brackets
+		"\\s?\\d+([.]\\d+)?\\]\\s?$",		# Second Number after brackets
+		sep=""),
+		type = "x_[x-x]",
+		alt = FALSE)
+	i <- i+1
+
+	# Find xx.x [xx.x, xx.x] 	
+	g[i,] <- list(group = "x_(x_x)", expr = paste(
+		"^\\s?\\d+([.]\\d+)?",			# Number before brackets
+		"\\s\\[\\d+([.]\\d+)?",			# First Number after brackets
+		"\\,\\s",					# Separator (comma) within brackets
+		"\\d+([.]\\d+)?\\]\\s?$",		# Second Number after brackets
+		sep=""),
+		type = "x_[x,x]",
+		alt = FALSE)
+	i <- i+1
+
+	# Find xx.x (xx.x, xx.x) 	
+	g[i,] <- list(group = "x_(x_x)", expr = paste(
+		"^\\s?\\d+([.]\\d+)?",			# Number before brackets
+		"\\s\\(\\d+([.]\\d+)?",			# First Number after brackets
+		"\\,\\s",					# Separator (comma) within brackets
+		"\\d+([.]\\d+)?\\)\\s?$",		# Second Number after brackets
+		sep=""),
+		type = "x_(x,x)",
+		alt = FALSE)
+	i <- i+1
+
 
 	# Alternative: e.g. (baseline Tallgren 2007)
 	# Find xx.x [xx.xexx.x]
@@ -173,6 +267,15 @@ baseExpr <- function(dataFrame = FALSE) {
 	g[i,] <- list(group = "n_x", expr = 
 		"\\s?[(]?[Nn]\\s\\d+[)]?\\s?$", 	
 		type = "n__x",
+		alt = FALSE)
+	i <- i+1
+
+	# Find (xx patients)
+	# (so not per se at the start of a cell)
+	# Parentheses optional
+	g[i,] <- list(group = "n_x", expr = 
+		"\\s?[(]\\s?\\d+\\spatients[)]\\s?$", 	
+		type = "x_pats",
 		alt = FALSE)
 	i <- i+1
 

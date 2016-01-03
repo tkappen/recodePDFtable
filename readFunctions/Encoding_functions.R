@@ -31,6 +31,7 @@ read.multi <- function(filelist, FUN = read.csv,
 		data <- mapply(tableRead, file = filelist, 
 			enc = enc, fileenc = fileenc, 
 			tblStruct = listStruct, SIMPLIFY = TRUE, ...)	
+		class(data) <- "tableList"
 		data	
 	}
 
@@ -40,7 +41,8 @@ read.multi <- function(filelist, FUN = read.csv,
 # Read and possibly verify the structure of the data
 tableRead <- function(file, FUN = read.csv,
 		enc = "unknown", fileenc = "", colClasses = "character",
-		tblStruct = NA, checkData = TRUE, ...) {
+		tblStruct = NA, checkData = FALSE,
+		startCol = FALSE, sub1000 = FALSE, ...) {
 
 	FUN <- match.fun(FUN)
 	x <- FUN(file = file, header=FALSE, encoding = enc, fileEncoding = fileenc,
@@ -55,16 +57,35 @@ tableRead <- function(file, FUN = read.csv,
 		cols <- tblStruct$cols
 		cellN <- tblStruct$cellN
 		firstNo <- tblStruct$firstVar
+		startCol <- tblStruct$startCol
+		subThousands <- tblStruct$subThousands
 		subst <- 1		
 	# Checkdata: If there is no previous list with table info and when checkData = True
-	} else if (is.na(tblStruct) & checkData == TRUE) {
+	} 
+	if (checkData == TRUE) {
 		# Ask for response on table structure
 		print(x)
 		cols <- readintegerline(x = "Which columns describe the data? (integers, comma separated)   ")
 		cellN <- readinteger(x = "Which line provides information on (n= xx)? (zero is 'no info')  ")
 		firstNo <- readinteger(x = "What is the first line with a baseline variable?   ")
-		subst <- 1		
+		subst <- 1	
 	}
+	if (startCol == TRUE) {
+		print(x)
+		startCol <- readinteger(x = "What is the first column with baseline data?   ")
+		subst <- 1
+	} else {
+		startCol <- 2
+		subst <- 1
+	}
+	if (sub1000 == TRUE) {
+		print(x)
+		subThousands <- readinteger(x = "Does this table need removal of thousands separator? (1 = yes, 0 = no)  ")
+		subst <- 1
+	} else {
+		subThousands <- 1
+		subst <- 1
+	}		
 	# If checkdata or tblStruct was used
 	if (subst==1) {
 		if(cellN <= 0) {
@@ -74,8 +95,14 @@ tableRead <- function(file, FUN = read.csv,
 		}
 		x <- x[firstNo:dim(x)[1],c(1,cols)]
 		l$data <- rbind(n, x)
-		l$structure <- list(file = file, cols = cols, 
-		cellN = cellN, firstVar = firstNo)
+		if(subThousands == 1) {
+			l$data <- sapply(l$data, function(z) gsub("(?<=\\d)\\,(?=\\d\\d\\d)","", z, perl=TRUE))
+		}
+		y <- list(file = file, cols = cols, 
+			cellN = cellN, firstVar = firstNo, 
+			startCol = startCol, subThousands = subThousands)
+		class(y)  <- "tableStructure"
+		l$structure <- y
 	}
 	return(l)
 }
