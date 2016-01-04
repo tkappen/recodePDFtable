@@ -1,5 +1,6 @@
 # Define different grep expressions in a function
-
+# Argument alt=FALSE/TRUE refers to whether special exceptions with strange character patterns should be used.
+# At the moment none of these exceptions are included
 baseExpr <- function(dataFrame = FALSE) {
 	## Create list with different types of number patterns
 	g <- data.frame(
@@ -39,13 +40,6 @@ baseExpr <- function(dataFrame = FALSE) {
 		alt = FALSE)
 	i <- i+1
 
-	g[i,] <- list(group = "(x)", paste(
-		"^\\s?[(]SD5\\s?",		# Expression within brackets
-		"\\d+([.]\\d+)?\\)\\s?$", 	# Number in brackets
-		sep=""),
-		type = "(SD5_x)",
-		alt = TRUE)
-	i <- i+1
 
 	#################
 	####  x_(x)  ####
@@ -65,6 +59,16 @@ baseExpr <- function(dataFrame = FALSE) {
 		"\\)[[:alnum:]]*\\s?\\w+$",		# Possible word after 
 		sep=""),
 		type = "x_(x)_abc",
+		alt = FALSE)
+	i <- i+1
+
+	# Find xx.x xx.x It belongs to the mean (SD) group, but without parentheses
+	g[i,] <- list(group = "x_(x)", expr = paste(
+		"^\\s?\\d+([.]\\d+)?\\%?",		# First Number before brackets
+		"\\s",					# Separator any one space
+		"\\d+([.]\\d+)?\\%?\\s?$",		# Second Number before brackets
+		sep=""),
+		type = "x__x",
 		alt = FALSE)
 	i <- i+1
 
@@ -138,19 +142,8 @@ baseExpr <- function(dataFrame = FALSE) {
 	i <- i+1
 
 
-	# Alternative: e.g. (baseline Tallgren 2007)
-	# Find xx.x [xx.xexx.x]
-	g[i,] <- list(group = "x_(x_x)", expr = paste(
-		"^\\s?\\d+([.]\\d+)?", 			# Number before brackets
-		"\\s\\[\\d+([.]\\d+)?",			# First Number after brackets
-		"\\s?e\\s?\\d+([.]\\d+)?\\]\\s?$",	# Second Number after brackets
-		sep=""),
-		type = "x_(xex)",
-		alt = TRUE)
-	i <- i+1
-
 	#######################################
-	####  x_x (with ±, /, : or space   ####
+	####  x_x (with ±, /, : )  ####
 	# Find xx.x±xx.x or xx.x ± xx.x (ignore trailing characters)
 	g[i,] <- list(group = "x_x", expr = paste(
 		"^\\s?\\d+([.]\\d+)?\\%?",		# First Number before brackets
@@ -181,16 +174,7 @@ baseExpr <- function(dataFrame = FALSE) {
 		alt = FALSE)
 	i <- i+1
 
-	# Find xx.x xx.x
-	g[i,] <- list(group = "x_x", expr = paste(
-		"^\\s?\\d+([.]\\d+)?\\%?",		# First Number before brackets
-		"\\s",					# Separator any one space
-		"\\d+([.]\\d+)?\\%?\\s?$",		# Second Number before brackets
-		sep=""),
-		type = "x__x",
-		alt = FALSE)
-	i <- i+1
-
+	
 	#############################################
 	####  x_x_(x_x) (with /, : or space   ####
 	# Find xx.x/xx.x (xx.x/xx.x)
@@ -279,13 +263,6 @@ baseExpr <- function(dataFrame = FALSE) {
 		alt = FALSE)
 	i <- i+1
 
-	# Alternative: e.g. (baseline Tallgren 2007)
-	# Find (N-+ xx) for myfiles[6] (Tallgren)
-	g[i,] <- list(group = "n_x", expr =  
-		"\\s?[(]?N\\s?\\-\\+?\\s?\\d+[)]?\\s?$",
-		type = "n437x",
-		alt = TRUE)	
-	i <- i+1
 	rownames(g) <- g$type	
 	if (dataFrame == FALSE)	class(g) <- "grepExpr"
 	# Return g

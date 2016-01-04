@@ -19,6 +19,8 @@ checkGrepCall <- function(x, expr = baseExpr(), perl=TRUE) {
 	l$rowsum <- rowSums(y)
 	l$uniqueGrep <- all(l$rowsum == 1)
 	l$rowType <- as.null()
+	# When each cell of the column has a single Grep expression matched
+	# then a list with the associated Grep Types are returned
 	if(l$uniqueGrep == TRUE) {
 		m <- which(y, arr.ind=TRUE)
 		rowType <- type[m[order(m[,1]),2]]
@@ -28,7 +30,7 @@ checkGrepCall <- function(x, expr = baseExpr(), perl=TRUE) {
 	invisible(l)
 }
 
-
+# For each (appropraite) column within a table
 checkGrepTable <- function(x, startCol = 2, cols = NA, expr = baseExpr(), perl=TRUE) {
 	if (!class(x) %in% c("data.frame","matrix","table")) stop('Dataframe, matrix or table expected')
 	if (!is.numeric(startCol)) stop('Variable cols invalid: numeric vector expected')
@@ -50,7 +52,7 @@ checkGrepTable <- function(x, startCol = 2, cols = NA, expr = baseExpr(), perl=T
 
 
 
-
+# Go through a whole set of tables
 grepTableSet <- function(d, expr = TRUE, cols = NA, alt = TRUE, groups = "all", perl = TRUE, ...) {
 	if (expr == TRUE) expr <- baseExpr()
 	if(class(d) == "tableList") {
