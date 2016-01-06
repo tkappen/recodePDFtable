@@ -184,7 +184,7 @@ baseExpr <- function(dataFrame = FALSE) {
 		"\\d+([.]\\d+)?\\%?",			# Second Number before brackets
 		"\\s\\(\\d+([.]\\d+)?\\%?",		# First Number after brackets
 		"\\s?\\/\\s?",				# Separator / within brackets
-		"\\d+([.]\\d+)?\\)\\s?$",		# Second Number after brackets
+		"\\d+([.]\\d+)?\\%?\\)\\s?$",		# Second Number after brackets
 		sep=""),
 		type = "x/x_(x/x)",
 		alt = FALSE)				
@@ -197,7 +197,7 @@ baseExpr <- function(dataFrame = FALSE) {
 		"\\d+([.]\\d+)?\\%?",			# Second Number before brackets
 		"\\s\\(\\d+([.]\\d+)?\\%?",		# First Number after brackets
 		"\\s?\\:\\s?",				# Separator : within brackets
-		"\\d+([.]\\d+)?\\)\\s?$",		# Second Number after brackets
+		"\\d+([.]\\d+)?\\%?\\)\\s?$",		# Second Number after brackets
 		sep=""),
 		type = "x:x_(x:x)",
 		alt = FALSE)
@@ -210,7 +210,7 @@ baseExpr <- function(dataFrame = FALSE) {
 		"\\d+([.]\\d+)?\\%?",			# Second Number before brackets
 		"\\s\\(\\d+([.]\\d+)?\\%?",		# First Number after brackets
 		"\\s",					# Separator any one space within brackets
-		"\\d+([.]\\d+)?\\)\\s?$",		# Second Number after brackets
+		"\\d+([.]\\d+)?\\%?\\)\\s?$",		# Second Number after brackets
 		sep=""),
 		type = "x__x_(x__x)",
 		alt = FALSE)
@@ -259,7 +259,7 @@ baseExpr <- function(dataFrame = FALSE) {
 	# Parentheses optional
 	g[i,] <- list(group = "n_x", expr = 
 		"\\s?[(]\\s?\\d+\\spatients[)]\\s?$", 	
-		type = "x_pats",
+		type = "n_pats",
 		alt = FALSE)
 	i <- i+1
 

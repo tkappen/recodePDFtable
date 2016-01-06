@@ -21,7 +21,7 @@ read.multi <- function(filelist, FUN = read.csv,
 	baseEncoding = "unknown", baseFileEncoding = "",
 	altEncoding = "UTF-8", altFileEncoding = "",
 	settoEncode = NA, settoFileEncode = NA, 
-	listStruct = NA, ...) {
+	listStruct = NA, row.names, ...) {
 		if (!is.character(filelist)) stop("a character vector argument
 			for 'filelist' expected")
 		enc <- encodeList(filelist, baseEncoding, 
@@ -32,6 +32,9 @@ read.multi <- function(filelist, FUN = read.csv,
 			enc = enc, fileenc = fileenc, 
 			tblStruct = listStruct, SIMPLIFY = TRUE, ...)	
 		class(data) <- "tableList"
+		if(is.character(row.names)) {
+			attr(data, "dimnames")[[2]] <- row.names
+		}
 		data	
 	}
 
