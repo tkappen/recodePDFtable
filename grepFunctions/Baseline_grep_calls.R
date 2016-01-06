@@ -45,14 +45,13 @@ checkGrepTable <- function(x, startCol = 2, cols = NA, expr = baseExpr(), perl=T
 
 	if (is.numeric(cols)) {
 		k <- cols
-		y <- checkGrepCall(x[,k], expr = expr, ...)
 	} else {
 		k <- startCol:dim(x)[2]
-		if(length(k)==1) {
-			y <- checkGrepCall(x[,k], expr = expr, ...)
-		} else {
-			y <- apply(x[,k], 2, FUN = checkGrepCall, ...)
-		}
+	}
+	if(length(k)==1) {
+		y <- checkGrepCall(x[,k], expr = expr, ...)
+	} else {
+		y <- apply(x[,k], 2, FUN = checkGrepCall, ...)
 	}
 	return(y)
 }	

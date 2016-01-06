@@ -18,13 +18,12 @@ splitGrepNum <- function(pattern, x, perl=TRUE,...) {
 
 # Apply multiple matterns over a single column/vector
 # of formatted table values
-colGrepNum <- function(x, patterns, perl=TRUE, ...) {
+colGrepNum <- function(x, patterns, row.names, perl=TRUE, ...) {
 	nr.cols <- length(patterns)
-	x <- replicate(nr.cols, x)
-	x <- as.list(as.data.frame(x, stringsAsFactors=FALSE))
-	y <- mapply(patterns, x, FUN = splitGrepNum,  perl=perl)
-	return(y)
-
+	z <- replicate(nr.cols, x)
+	z <- as.list(as.data.frame(z, stringsAsFactors=FALSE))
+	y <- mapply(patterns, z, FUN = splitGrepNum,  perl=perl)
+	return(cbind(x,as.data.frame(y, row.names = row.names)))
 }
 
 # A function that maps a vector of expression types
@@ -50,41 +49,76 @@ colstoExpr <- function(x) {
 # so that the expression can be looked up in baseExprSub()
 # The type vectors can be generated through grepTableSet()
 colsGrepNum <- function(x,  type, expr = "base",
-		startCol = 2, cols = NA, perl=TRUE, ...) {
+		startCol = 2, cols = NA, row.names = NA, perl=TRUE, ...) {
 	e <- expr
-	if(expr=="base"){
-		e <- colstoExpr(type2)
+	if (is.numeric(cols)) {
+		k <- cols
+	} else {
+		k <- startCol:dim(x)[2]
 	}
-	if(dim(x)[2] != length(e)) {
+	d <- x[,k]
+	if(is.na(row.names)) {
+		row.names <- x[,1]
+	}
+	if(length(k) != dim(as.data.frame(type))[2]) {
 		stop("Number of columns in table and type do not match")
  	}
-	x <- as.list(as.data.frame(x, stringsAsFactors=FALSE))
-	y <- mapply(patterns = e, x = x, colGrepNum, 
-		perl = TRUE, SIMPLIFY=FALSE)
+
+	d <- as.list(as.data.frame(d, stringsAsFactors=FALSE))
+	if(length(k)==1) {
+		if(expr=="base"){
+			e <- typetoExpr(type)
+		}
+		y <- colGrepNum(patterns = e, x = d,
+			perl = TRUE,row.names = row.names)
+	} else {
+		if(expr=="base"){
+			e <- colstoExpr(type)
+		}
+		y <- mapply(patterns = e, x = d, colGrepNum,
+			perl = TRUE, SIMPLIFY=FALSE,
+			MoreArgs = list(row.names = row.names))
+	}
 	return(y)
 	
 }
 
-mapply(patterns = e, x = x, colGrepNum, perl = TRUE, SIMPLIFY=TRUE)
 
-type2 <- grepTableSet(myfiles, rowtype=TRUE)[[1]]
-y3 <- mytables[[1]]
-y4 <- y3[,c(2,3)]
-colsGrepNum(y4, type = type2)
+tableGrepNum <- function(x, expr = "base", type = "base", ...) {
+	if(type=="base"){
+		type <- grepTableSet(x, rowtype=TRUE)
+	} 
+	if(class(x)=="tableList") {
+		x <- x[1,]
+	}
+	y <- mapply(x = x, type = type, colsGrepNum, ...)
+	return(y)
+}
+
+tableGrepNum(myfiles)
+
+mapply(patterns = y[[2]], x = d, colGrepNum,
+		perl = TRUE, SIMPLIFY=FALSE,
+		MoreArgs = list(row.names = row.names))
+
+y <- grepTableSet(myfiles, rowtype=TRUE)
+x <- myfiles[1,]
+mapply(x = x, type = type, colsGrepNum)
+
+colsGrepNum(x[[2]], type = type[[2]])
+
+dim(as.data.frame(type[[3]]))[2]
+e <- colstoExpr(type[[2]])
 
 
-tableGrepNum <- function(x, expr = "base", type= "base", 
-		startCol = 2, cols = NA, perl=TRUE, ...) {
-
-
-	if(expr=="base"){
-		expr = baseExprSub()[,-1]
-		if(type=="base"){
-			type <- grepTableSet(myfiles, rowtype=TRUE)
-		} 
-
-
-
+d <- x[[3]][,2]
+row.names <- x[[3]][,1]
+e <- typetoExpr(type[[3]])
+		}
+colGrepNum(patterns = e, x = d,perl = TRUE,row.names = row.names)
+		y <- sapply(patterns = e, x = d, colGrepNum,
+			perl = TRUE, SIMPLIFY=FALSE,
+			MoreArgs = list(row.names = row.names))
 
 e <- baseExprSub()
 x <- y[[1]][[1]]$rowType
