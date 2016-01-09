@@ -54,13 +54,5 @@ getDefaultTypes <- function(x, checkFormats = FALSE) {
 	return(dT)
 }
 
-# Compare orginal table with the current Type
-compareTypes <- function(x,y) {
-	cols <- c("group","pattern1","pattern2","pattern3","pattern4")
-	print(x[,1:2], quote=FALSE)
-	cat(" \n")
-	print(y[,cols], quote=FALSE, na.print = "")
-}
-
 
 

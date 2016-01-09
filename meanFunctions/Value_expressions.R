@@ -187,8 +187,8 @@ cellTypes <- function(dataFrame = TRUE) {
 	g[i,] <- list(ID = i,
 		group = "x±x",
 		pattern1 = "Frequency",
-		pattern2 = "Frequency",
-		pattern3 = NA,
+		pattern2 = NA,
+		pattern3 = "Frequency",
 		pattern4 = NA,
 		formatFUN = "paste(p1,\":\",p3, sep = \"\")",
 		ranking = j)
