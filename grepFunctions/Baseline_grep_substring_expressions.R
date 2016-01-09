@@ -52,6 +52,14 @@ baseExprSub <- function(dataFrame = TRUE) {
 		pattern4 = NA) 
 	i <- i+1
 
+	# "x±x"
+	g[i,] <- list(type = "x±x",
+		pattern1 = "\\d+([.]\\d+)?(?=\\%?\\s?\\±\\s?\\d+([.]\\d+)?)", 
+		pattern2 = NA,       
+		pattern3 = "(?<=\\±)\\s?\\d+([.]\\d+)?",
+		pattern4 = NA)         
+	i <- i+1
+
 	# "x__x" (it is for example mean SD)
 	g[i,] <- list(type = "x__x",
 		pattern1 = "\\d+([.]\\d+)?(?=\\%?\\s\\d+([.]\\d+)?\\%?\\s?$)", 
@@ -106,14 +114,6 @@ baseExprSub <- function(dataFrame = TRUE) {
 		pattern2 = NA,
 		pattern3 = "(?<=\\()\\d+([.]\\d+)?(?=\\,\\s\\d+([.]\\d+)?\\)\\s?$)",  
 		pattern4 = "(?<=\\,\\s)\\d+([.]\\d+)?(?=\\)\\s?$)")
-	i <- i+1
-
-	# "x±x"
-	g[i,] <- list(type = "x±x",
-		pattern1 = "\\d+([.]\\d+)?(?=\\%?\\s?\\±\\s?\\d+([.]\\d+)?)", 
-		pattern2 = "(?<=\\±)\\s?\\d+([.]\\d+)?",
-		pattern3 = NA,       
-		pattern4 = NA)         
 	i <- i+1
 
 	# "x/x"

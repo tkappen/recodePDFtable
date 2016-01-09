@@ -20,9 +20,9 @@ baseExpr <- function(dataFrame = FALSE) {
 		alt = FALSE)
 	i <- i+1
 
-	##############
+	###############
 	####  (x)  ####
-	# (x) or (x)%
+	# (SD x)
 	g[i,] <- list(group = "(x)", expr = paste(
 		"^\\s?[(]SD\\s?\\=?\\s?",	# Expression within brackets
 		"\\d+([.]\\d+)?\\)\\s?$", 	# Number in brackets
@@ -31,6 +31,7 @@ baseExpr <- function(dataFrame = FALSE) {
 		alt = FALSE)
 	i <- i+1
 
+	# (x) or (x)%
 	g[i,] <- list(group = "(x)", expr = paste(
 		"^\\s?[(]\\s?\\=?\\s?",		# Expression within brackets
 		"\\d+([.]\\d+)?\\s?", 		# Number in brackets
@@ -62,8 +63,23 @@ baseExpr <- function(dataFrame = FALSE) {
 		alt = FALSE)
 	i <- i+1
 
+
+	###############
+	####  x±x  ####
+	# Subgroup of x_(x)
+	# However, has a different default format
+	# It belongs to the mean (SD) group
+	g[i,] <- list(group = "x±x", expr = paste(
+		"^\\s?\\d+([.]\\d+)?\\%?",		# First Number before brackets
+		"\\s?\\±\\s?",				# Separator ±
+		"\\d+([.]\\d+)?",				# Second Number before brackets
+		sep=""),
+		type = "x±x",
+		alt = FALSE)
+	i <- i+1
+
 	# Find xx.x xx.x It belongs to the mean (SD) group, but without parentheses
-	g[i,] <- list(group = "x_(x)", expr = paste(
+	g[i,] <- list(group = "x±x", expr = paste(
 		"^\\s?\\d+([.]\\d+)?\\%?",		# First Number before brackets
 		"\\s",					# Separator any one space
 		"\\d+([.]\\d+)?\\%?\\s?$",		# Second Number before brackets
@@ -71,6 +87,7 @@ baseExpr <- function(dataFrame = FALSE) {
 		type = "x__x",
 		alt = FALSE)
 	i <- i+1
+
 
 	#########################################
 	####  x_(x - x) (not per se a dash)  ####
@@ -143,17 +160,8 @@ baseExpr <- function(dataFrame = FALSE) {
 
 
 	#######################################
-	####  x_x (with ±, /, : )  ####
-	# Find xx.x±xx.x or xx.x ± xx.x (ignore trailing characters)
-	g[i,] <- list(group = "x_x", expr = paste(
-		"^\\s?\\d+([.]\\d+)?\\%?",		# First Number before brackets
-		"\\s?\\±\\s?",				# Separator ±
-		"\\d+([.]\\d+)?",				# Second Number before brackets
-		sep=""),
-		type = "x±x",
-		alt = FALSE)
-	i <- i+1
-	
+	####  x_x (with /, : )  ####
+
 	# Find xx.x/xx.x 
 	g[i,] <- list(group = "x_x", expr = paste(
 		"^\\s?\\d+([.]\\d+)?\\%?",		# First Number before brackets
