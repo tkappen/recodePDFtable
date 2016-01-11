@@ -174,7 +174,7 @@ dFormat <- dget("./Data/default_formats_.R")
 Barone et al. 2002
       V1                                                   V2               V3             
  [1,]                                                      (n = 0)          (n = 0)        
- [2,] Mean age/range                                       75 ± 10 (59-96)  74 ± 11 (56-91)
+ [2,] Mean age/range                                       75 Â± 10 (59-96)  74 Â± 11 (56-91)
  [3,] Gender (male/female)                                 11/9             22/18          
  [4,] Diabetes mellitus                                    6 (30)           5 (13)         
  [5,] Hypertension                                         11 (55)          13 (33)        
@@ -183,9 +183,9 @@ Barone et al. 2002
  [8,] Medical clearance                                    15 (75)          27 (68)        
  [9,] Emergency surgery                                    3 (15)           13 (33)        
 [10,] ASA classification                                   3.0              2.8            
-[11,] Operative duration (minutes)                         124 ± 74         124 ± 46       
-[12,] Estimated blood loss (mL)                            292 ± 714        241 ± 289      
-[13,] Intravenous fluids given in the operating room (mL)  1338 ± 1352      1447 ± 1221    
+[11,] Operative duration (minutes)                         124 Â± 74         124 Â± 46       
+[12,] Estimated blood loss (mL)                            292 Â± 714        241 Â± 289      
+[13,] Intravenous fluids given in the operating room (mL)  1338 Â± 1352      1447 Â± 1221    
 
 Is this a frequency (press 1), mean (2) or a percentage (3)?
 ```
@@ -249,7 +249,7 @@ In addition, appropriate formatting is applied and converted back to a formatted
 
 And the result:
 
-![Sun et al.](https://github.com/tkappen/IOHReviewReadPDFs/blob/master/Images/Sun%20et%20al%20-%20Table%201.png)
+![Sun et al.](https://github.com/tkappen/recodePDFtable/blob/master/Images/Sun%20et%20al%20-%20Table%201.png)
 
 ```{r getResult}
 formatTables(mywtdtables, dFormat2, formatonly=TRUE)[[26]]
@@ -276,7 +276,7 @@ write.multi.csv <- function (x, directory, FUN = write.csv) {
 
 ## The final result
 
-![Results](https://github.com/tkappen/IOHReviewReadPDFs/blob/master/Images/Summary%20Baseline%20Data.png)
+![Results](https://github.com/tkappen/recodePDFtable/blob/master/Images/Summary%20Baseline%20Data.png)
 
 
 
