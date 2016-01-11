@@ -30,35 +30,7 @@ files_full
 ```
 
 ```
-##  [1] "./Data extracts/tabula-2002 - Journal of intensive care medicine - Barone et al.csv"                    
-##  [2] "./Data extracts/tabula-2003 - Renal Failure - Lima et al.csv"                                           
-##  [3] "./Data extracts/tabula-2005 - Anesthesia and Analgesia - Monk et al.csv"                                
-##  [4] "./Data extracts/tabula-2006 - Sharma et al.csv"                                                         
-##  [5] "./Data extracts/tabula-2007 - Clinical Journal of the American Society of Nephrology - Thakar et al.csv"
-##  [6] "./Data extracts/tabula-2007 - Tallgren et al.csv"                                                       
-##  [7] "./Data extracts/tabula-2008 - Journal of Korean Neurosurgical Society - Chong et al.csv"                
-##  [8] "./Data extracts/tabula-2009 - Acta anaesthesiologica Scandinavica - Taff√© et al.csv"                    
-##  [9] "./Data extracts/tabula-2009 - Scandinavian Cardiovascular Journal - Nakamura et al.csv"                 
-## [10] "./Data extracts/tabula-2009 Bijker et al.csv"                                                           
-## [11] "./Data extracts/tabula-2009 Kheterpal et al.csv"                                                        
-## [12] "./Data extracts/tabula-2011 - British Journal of Anaesthesia - Sabat√© et al.csv"                        
-## [13] "./Data extracts/tabula-2011 - Journal of anesthesia - Tassoudis et al.csv"                              
-## [14] "./Data extracts/tabula-2011 - Journal of International Medical Research - Franck et al.csv"             
-## [15] "./Data extracts/tabula-2011 - Siepe et al.csv"                                                          
-## [16] "./Data extracts/tabula-2011 Patti et al.csv"                                                            
-## [17] "./Data extracts/tabula-2012 - Nephrology Dialysis Transplantation - Haase et al.csv"                    
-## [18] "./Data extracts/tabula-2012 Bijker et al.csv"                                                           
-## [19] "./Data extracts/tabula-2013 - Anesthesiology research and practice - Aronson et al.csv"                 
-## [20] "./Data extracts/tabula-2013 - Chinese medical journal - Yue et al.csv"                                  
-## [21] "./Data extracts/tabula-2013 Walsh et al.csv"                                                            
-## [22] "./Data extracts/tabula-2014 - Transplantation proceedings - Sirivatanauksorn et al.csv"                 
-## [23] "./Data extracts/tabula-2014 Pipanmekaporn et al.csv"                                                    
-## [24] "./Data extracts/tabula-2015 - Anesthesiology - Mascha et al.csv"                                        
-## [25] "./Data extracts/tabula-2015 - Anesthesiology - Monk et al.csv"                                          
-## [26] "./Data extracts/tabula-2015 - Anesthesiology - Sun et al.csv"                                           
-## [27] "./Data extracts/tabula-2015 - Anesthesiology Research and Practice - Petsiti et al.csv"                 
-## [28] "./Data extracts/tabula-2015 - British journal of anaesthesia - Hirsch et al.csv"                        
-## [29] "./Data extracts/tabula-2015 - British journal of anaesthesia - Wesselink et al.csv"
+## character(0)
 ```
 
 Multiple tables should be read. However, due to different formatting
@@ -93,11 +65,29 @@ mynames <- paste(regmatches(files_full,m1), regmatches(files_full,m2))
 
 # Re-read existing table structure and load tables
 listStruct <- dget("./Data/tableStructures.R")
+```
+
+```
+## Warning in file(filename, "r"): cannot open file './Data/
+## tableStructures.R': No such file or directory
+```
+
+```
+## Error in file(filename, "r"): cannot open the connection
+```
+
+```r
 myfiles <- read.multi(files_full, 
 	baseEncoding = "UTF-8", baseFileEncoding = "windows-1252",
 	altEncoding = "windows-1252", altFileEncoding = "437",
  	listStruct= listStruct, row.names = mynames)
+```
 
+```
+## Error in mapply(tableRead, file = filelist, enc = enc, fileenc = fileenc, : zero-length inputs cannot be mixed with those of non-zero length
+```
+
+```r
 # Read only the tables into separte variable
 myfiles[1,2:3]
 ```
@@ -107,13 +97,13 @@ myfiles[1,2:3]
 ##       V1                    V2           V3         
 ##  [1,] "N "                  "56 (61%) "  "36 (39%)" 
 ##  [2,] "Sex (M/F) "          "29/27 "     "19/17"    
-##  [3,] "Age (years) "        "46¬±13 "     "41¬±16"    
-##  [4,] "Urea (mg/dL) "       "39¬±28 "     "27¬±11"    
-##  [5,] "Creatinine (mg/dL) " "1.16¬±0.54 " "0.87¬±0.27"
-##  [6,] "Potassium (mEq/L) "  "4.3¬±0.6 "   "3.9¬±0.3"  
-##  [7,] "Sodium (mEq/L) "     "136¬±7 "     "137¬±5"    
-##  [8,] "Albumin (g/dL) "     "3.3¬±0.1 "   "3.3¬±0.1"  
-##  [9,] "Bilirubin (mg/dL) "  "5.8¬±1.1 "   "2.7¬±0.9"  
+##  [3,] "Age (years) "        "46±13 "     "41±16"    
+##  [4,] "Urea (mg/dL) "       "39±28 "     "27±11"    
+##  [5,] "Creatinine (mg/dL) " "1.16±0.54 " "0.87±0.27"
+##  [6,] "Potassium (mEq/L) "  "4.3±0.6 "   "3.9±0.3"  
+##  [7,] "Sodium (mEq/L) "     "136±7 "     "137±5"    
+##  [8,] "Albumin (g/dL) "     "3.3±0.1 "   "3.3±0.1"  
+##  [9,] "Bilirubin (mg/dL) "  "5.8±1.1 "   "2.7±0.9"  
 ## [10,] "Ascites "            "41 (73%) "  "22 (61%)" 
 ## [11,] "Encephalopathy "     "21 (38%) "  "11 (31%)" 
 ## [12,] "Variceal bleeding "  "21 (38%) "  "14 (39%)" 
@@ -338,7 +328,7 @@ grepTableSet(myfiles)[[15]]
 ```
 ## $V2
 ## $V2$y.matrix
-##        x[%] (SD_x)  (x%) x_(x[%]) x_(x)_abc   x¬±x  x__x x_(x-x) x_x-x
+##        x[%] (SD_x)  (x%) x_(x[%]) x_(x)_abc   x±x  x__x x_(x-x) x_x-x
 ##  [1,] FALSE  FALSE FALSE    FALSE     FALSE FALSE FALSE   FALSE FALSE
 ##  [2,] FALSE  FALSE FALSE    FALSE     FALSE FALSE  TRUE   FALSE FALSE
 ##  [3,] FALSE  FALSE FALSE     TRUE     FALSE FALSE FALSE   FALSE FALSE
@@ -407,7 +397,7 @@ grepTableSet(myfiles)[[15]]
 ## 
 ## $V3
 ## $V3$y.matrix
-##        x[%] (SD_x)  (x%) x_(x[%]) x_(x)_abc   x¬±x  x__x x_(x-x) x_x-x
+##        x[%] (SD_x)  (x%) x_(x[%]) x_(x)_abc   x±x  x__x x_(x-x) x_x-x
 ##  [1,] FALSE  FALSE FALSE    FALSE     FALSE FALSE FALSE   FALSE FALSE
 ##  [2,] FALSE  FALSE FALSE    FALSE     FALSE FALSE  TRUE   FALSE FALSE
 ##  [3,] FALSE  FALSE FALSE     TRUE     FALSE FALSE FALSE   FALSE FALSE
@@ -552,7 +542,7 @@ tableGrepNum(myfiles)[[1]]
 ## $V2
 ##                                                                     x
 ##                                                               (n = 0)
-## Mean age/range                                       75 ¬± 10 (59-96) 
+## Mean age/range                                       75 ± 10 (59-96) 
 ## Gender (male/female)                                            11/9 
 ## Diabetes mellitus                                             6 (30) 
 ## Hypertension                                                 11 (55) 
@@ -561,9 +551,9 @@ tableGrepNum(myfiles)[[1]]
 ## Medical clearance                                            15 (75) 
 ## Emergency surgery                                             3 (15) 
 ## ASA classification                                               3.0 
-## Operative duration (minutes)                                124 ¬± 74 
-## Estimated blood loss (mL)                                  292 ¬± 714 
-## Intravenous fluids given in the operating room (mL)      1338 ¬± 1352 
+## Operative duration (minutes)                                124 ± 74 
+## Estimated blood loss (mL)                                  292 ± 714 
+## Intravenous fluids given in the operating room (mL)      1338 ± 1352 
 ##                                                      pattern1 pattern2
 ##                                                             0       NA
 ## Mean age/range                                             75       NA
@@ -596,7 +586,7 @@ tableGrepNum(myfiles)[[1]]
 ## $V3
 ##                                                                    x
 ##                                                              (n = 0)
-## Mean age/range                                       74 ¬± 11 (56-91)
+## Mean age/range                                       74 ± 11 (56-91)
 ## Gender (male/female)                                           22/18
 ## Diabetes mellitus                                             5 (13)
 ## Hypertension                                                 13 (33)
@@ -605,9 +595,9 @@ tableGrepNum(myfiles)[[1]]
 ## Medical clearance                                            27 (68)
 ## Emergency surgery                                            13 (33)
 ## ASA classification                                               2.8
-## Operative duration (minutes)                                124 ¬± 46
-## Estimated blood loss (mL)                                  241 ¬± 289
-## Intravenous fluids given in the operating room (mL)      1447 ¬± 1221
+## Operative duration (minutes)                                124 ± 46
+## Estimated blood loss (mL)                                  241 ± 289
+## Intravenous fluids given in the operating room (mL)      1447 ± 1221
 ##                                                      pattern1 pattern2
 ##                                                           0.0       NA
 ## Mean age/range                                           74.0       NA
@@ -666,13 +656,22 @@ For some tables the function will ask for input on the type for `x` (one value o
 # dput(dFormat, "./Data/default_formats_.R")
 dFormat <- dget("./Data/default_formats_.R")
 ```
+
+```
+## Warning in file(filename, "r"): cannot open file './Data/
+## default_formats_.R': No such file or directory
+```
+
+```
+## Error in file(filename, "r"): cannot open the connection
+```
   
 
 ```
 Barone et al. 2002
       V1                                                   V2               V3             
  [1,]                                                      (n = 0)          (n = 0)        
- [2,] Mean age/range                                       75 ¬± 10 (59-96)  74 ¬± 11 (56-91)
+ [2,] Mean age/range                                       75 ± 10 (59-96)  74 ± 11 (56-91)
  [3,] Gender (male/female)                                 11/9             22/18          
  [4,] Diabetes mellitus                                    6 (30)           5 (13)         
  [5,] Hypertension                                         11 (55)          13 (33)        
@@ -681,9 +680,9 @@ Barone et al. 2002
  [8,] Medical clearance                                    15 (75)          27 (68)        
  [9,] Emergency surgery                                    3 (15)           13 (33)        
 [10,] ASA classification                                   3.0              2.8            
-[11,] Operative duration (minutes)                         124 ¬± 74         124 ¬± 46       
-[12,] Estimated blood loss (mL)                            292 ¬± 714        241 ¬± 289      
-[13,] Intravenous fluids given in the operating room (mL)  1338 ¬± 1352      1447 ¬± 1221    
+[11,] Operative duration (minutes)                         124 ± 74         124 ± 46       
+[12,] Estimated blood loss (mL)                            292 ± 714        241 ± 289      
+[13,] Intravenous fluids given in the operating room (mL)  1338 ± 1352      1447 ± 1221    
 
 Is this a frequency (press 1), mean (2) or a percentage (3)?
 ```
@@ -704,18 +703,94 @@ However, sometimes this `N` is missing. We used a [function](https://github.com/
 missingN <- dget("./Data/missing_Ns.R")
 ```
 
+```
+## Warning in file(filename, "r"): cannot open file './Data/missing_Ns.R': No
+## such file or directory
+```
+
+```
+## Error in file(filename, "r"): cannot open the connection
+```
+
 ### Changing some default cell types
 
 Some manual changes had to be made to the formatting of the data, because
 the default cell type was not appropriate, or some percentages are missing, because only 
 frequencies are reported.
 
-[Change cell types for format](https://github.com/tkappen/IOHReviewReadPDFs/blob/master/Data/changeFormat_tables.R)
+For example:
 
-[Calculate missing percentages](https://github.com/tkappen/IOHReviewReadPDFs/blob/master/Data/calculate_missing_Percentages.R)
+```
+# Custom changes to format per row, mostly Freq(%) to Mean(SD) conversion
+# i <- is the indicator of which rows need to be changed
+# t <- which cellType it needs to become
+
+
+# Display all cellTypes() as a reference
+ct <- cellTypes()
+
+# Function to add rows to data.frame that already has names
+addRows <- function(x) {
+	n <- 1:nrow(x)
+	cbind(n,x)
+}
+
+# `TaffÈ et al. 2009`
+addRows(myformatted$`TaffÈ et al. 2009`)
+i <- c(2,3,22)
+t <- c(2,5,2 )
+dFormat$`TaffÈ et al. 2009`[i,] <- ct[t,]
+
+# `Bijker et al. 2009`
+addRows(myformatted$`Bijker et al. 2009`)
+i <- c(2,4,28)
+t <- c(7,7,7 )
+dFormat$`Bijker et al. 2009`[i,] <- ct[t,]
+```
+
+And for calculation of percentages:
+
+```
+# Recalculate percentage from values that only have frequencies
+# f <- is Frequencies without percentage
+# t <- which cellType it needs to become
+
+dFormat2 <- dFormat
+ct <- cellTypes()
+
+# `Petsiti et al. 2015`
+addRows(myformatted$`Petsiti et al. 2015`)
+f <- c(3,5,6,8,9,10,11,12,13,14,15,16,17,18,19)
+n <- mywtdtables$`Petsiti et al. 2015`[1,1]
+p <- round(mywtdtables$`Petsiti et al. 2015`[f,1]/n*100,0)
+mywtdtables$`Petsiti et al. 2015`[f,1] <- p
+# Change 3rd row, second column
+p <- round(mywtdtables$`Petsiti et al. 2015`[3,2]/n*100,0)
+mywtdtables$`Petsiti et al. 2015`[3,2] <- p
+dFormat2$`Petsiti et al. 2015`[f,] <- ct[3,]
+dFormat2$`Petsiti et al. 2015`[3,] <- ct[14,]
+dFormat2$`Petsiti et al. 2015`[3,"formatFUN"] <- "paste(p1,\"%:\",p2,\"%\", sep = \"\")"
+```
 
 
 
+```
+## Warning in file(filename, "r", encoding = encoding): cannot open file './
+## Data/changeFormat_tables.R': No such file or directory
+```
+
+```
+## Error in file(filename, "r", encoding = encoding): cannot open the connection
+```
+
+```
+## Warning in file(filename, "r", encoding = encoding): cannot open file './
+## Data/calculate_missing_Percentages.R': No such file or directory
+```
+
+```
+## Error in file(filename, "r", encoding = encoding): cannot open the connection
+```
 
 ### Calculate and format summary data
 
@@ -727,55 +802,34 @@ In addition, appropriate formatting is applied and converted back to a formatted
 
 And the result:
 
-![Sun et al.](https://github.com/tkappen/recodePDFtable/blob/master/Images/Sun%20et%20al%20-%20Table%201.png)
+![Kheterpal et al.](https://github.com/tkappen/recodePDFtable/blob/master/Images/15TT1.png)
 
 
 ```r
-formatTables(mywtdtables, dFormat2, formatonly=TRUE)[[26]]
+formatTables(mywtdtables, dFormat2, formatonly=TRUE)[[11]]
 ```
 
 ```
-##                                       y
-## 1                                  5127
-## Age (yr)                      61.3¬±14.2
-##  Female                             53%
-##  Hypertension                       48%
-## Coronary artery disease             11%
-##  Heart failure                       1%
-##  Peripheral vascular disease         8%
-##  Cerebrovascular disease             2%
-##  Chronic obstructive                 9%
-## pulmonary disease                      
-## Diabetes                            15%
-## Estimated glomerular                   
-## filtration rate (ml/min)               
-## >60                                 83%
-## 30<U+0096>60                               15%
-## <30                                  1%
-## Anemia                              16%
-## Malignancy                          53%
-## Preoperative medications               
-## ACE inhibitor                       16%
-##  Angiotensin receptor               11%
-## blocker                                
-##  √ü Blocker                          16%
-##  Type of surgery                       
-##  General surgery                    26%
-## Vascular                            10%
-##  Thoracic                           26%
-## Gynecological                       17%
-## Ear, nose, and throat               16%
-##  Plastic                             4%
-## Intraoperative                         
-##  Blood Loss (ml)                       
-##  =100                                8%
-## 101<U+0096>600                              7%
-##  601<U+0096>1000                           31%
-##  >1000                              54%
-##  Duration of surgery (h)               
-##  =2                                 21%
-##  2<U+0096>5                                49%
-##   =5                                30%
+##                                                           y
+## 1                                                      7740
+## Age 68                                                  23%
+## Body mass index                                         37%
+## Male sex                                                51%
+## Orally controlled diabetes mellitus                      7%
+## Insulin controlled diabetes mellitus                     6%
+## History of chronic obstructive pulmonary disease         4%
+## Ascites                                                  1%
+## Active congestive heart failure                          1%
+## Acute renal failure                                      1%
+## Preoperative dialysis dependence                         2%
+## Cerebrovascular disease                                  5%
+## History of myocardial infarction within past 6 months    1%
+## Previous cardiac intervention*                          10%
+## History of angina within 1 month before surgery          1%
+## Hypertension requiring medications                      40%
+## History of peripheral vascular occlusive disease         4%
+## Emergency surgery                                       12%
+## High-risk surgery                                       22%
 ```
 
 ### Writing to datasets

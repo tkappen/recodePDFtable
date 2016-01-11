@@ -174,7 +174,7 @@ dFormat <- dget("./Data/default_formats_.R")
 Barone et al. 2002
       V1                                                   V2               V3             
  [1,]                                                      (n = 0)          (n = 0)        
- [2,] Mean age/range                                       75 Â± 10 (59-96)  74 Â± 11 (56-91)
+ [2,] Mean age/range                                       75 ± 10 (59-96)  74 ± 11 (56-91)
  [3,] Gender (male/female)                                 11/9             22/18          
  [4,] Diabetes mellitus                                    6 (30)           5 (13)         
  [5,] Hypertension                                         11 (55)          13 (33)        
@@ -183,9 +183,9 @@ Barone et al. 2002
  [8,] Medical clearance                                    15 (75)          27 (68)        
  [9,] Emergency surgery                                    3 (15)           13 (33)        
 [10,] ASA classification                                   3.0              2.8            
-[11,] Operative duration (minutes)                         124 Â± 74         124 Â± 46       
-[12,] Estimated blood loss (mL)                            292 Â± 714        241 Â± 289      
-[13,] Intravenous fluids given in the operating room (mL)  1338 Â± 1352      1447 Â± 1221    
+[11,] Operative duration (minutes)                         124 ± 74         124 ± 46       
+[12,] Estimated blood loss (mL)                            292 ± 714        241 ± 289      
+[13,] Intravenous fluids given in the operating room (mL)  1338 ± 1352      1447 ± 1221    
 
 Is this a frequency (press 1), mean (2) or a percentage (3)?
 ```
@@ -211,9 +211,59 @@ Some manual changes had to be made to the formatting of the data, because
 the default cell type was not appropriate, or some percentages are missing, because only 
 frequencies are reported.
 
-[Change cell types for format](https://github.com/tkappen/IOHReviewReadPDFs/blob/master/Data/changeFormat_tables.R)
+For example:
 
-[Calculate missing percentages](https://github.com/tkappen/IOHReviewReadPDFs/blob/master/Data/calculate_missing_Percentages.R)
+```
+# Custom changes to format per row, mostly Freq(%) to Mean(SD) conversion
+# i <- is the indicator of which rows need to be changed
+# t <- which cellType it needs to become
+
+
+# Display all cellTypes() as a reference
+ct <- cellTypes()
+
+# Function to add rows to data.frame that already has names
+addRows <- function(x) {
+	n <- 1:nrow(x)
+	cbind(n,x)
+}
+
+# `Taffé et al. 2009`
+addRows(myformatted$`Taffé et al. 2009`)
+i <- c(2,3,22)
+t <- c(2,5,2 )
+dFormat$`Taffé et al. 2009`[i,] <- ct[t,]
+
+# `Bijker et al. 2009`
+addRows(myformatted$`Bijker et al. 2009`)
+i <- c(2,4,28)
+t <- c(7,7,7 )
+dFormat$`Bijker et al. 2009`[i,] <- ct[t,]
+```
+
+And for calculation of percentages:
+
+```
+# Recalculate percentage from values that only have frequencies
+# f <- is Frequencies without percentage
+# t <- which cellType it needs to become
+
+dFormat2 <- dFormat
+ct <- cellTypes()
+
+# `Petsiti et al. 2015`
+addRows(myformatted$`Petsiti et al. 2015`)
+f <- c(3,5,6,8,9,10,11,12,13,14,15,16,17,18,19)
+n <- mywtdtables$`Petsiti et al. 2015`[1,1]
+p <- round(mywtdtables$`Petsiti et al. 2015`[f,1]/n*100,0)
+mywtdtables$`Petsiti et al. 2015`[f,1] <- p
+# Change 3rd row, second column
+p <- round(mywtdtables$`Petsiti et al. 2015`[3,2]/n*100,0)
+mywtdtables$`Petsiti et al. 2015`[3,2] <- p
+dFormat2$`Petsiti et al. 2015`[f,] <- ct[3,]
+dFormat2$`Petsiti et al. 2015`[3,] <- ct[14,]
+dFormat2$`Petsiti et al. 2015`[3,"formatFUN"] <- "paste(p1,\"%:\",p2,\"%\", sep = \"\")"
+```
 
 
 ```{r weightTables, results='hide', echo=FALSE}
@@ -249,10 +299,10 @@ In addition, appropriate formatting is applied and converted back to a formatted
 
 And the result:
 
-![Sun et al.](https://github.com/tkappen/recodePDFtable/blob/master/Images/Sun%20et%20al%20-%20Table%201.png)
+![Kheterpal et al.](https://github.com/tkappen/recodePDFtable/blob/master/Images/15TT1.png)
 
 ```{r getResult}
-formatTables(mywtdtables, dFormat2, formatonly=TRUE)[[26]]
+formatTables(mywtdtables, dFormat2, formatonly=TRUE)[[11]]
 ```
 
 ### Writing to datasets

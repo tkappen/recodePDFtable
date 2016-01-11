@@ -19,14 +19,16 @@ A regular manuscript includes a 'Table 1' - or a baseline table.
 This provides background info on the characteristics of the subjects that are included.
 Such a table can look like this.   
 <br />
-![Bijker et al.](http://anesthesiology.pubs.asahq.org/data/Journals/JASA/931089/14TT1.png)
+![Bijker et al.](https://github.com/tkappen/recodePDFtable/blob/master/Images/14TT1.png)
+[link to publication](http://anesthesiology.pubs.asahq.org/article.aspx?articleid=1932382)
 <br/>
 <br />
 We can already see that there are multiple numbers within a single cell with multiple formats.
 Yet, this table includes the data from the total cohort of subjects.
 This table for example, shows only the data for different subgroups.  
 <br />
-![Sun et al.](https://github.com/tkappen/recodePDFtable/blob/master/Images/Sun%20et%20al%20-%20Table%201.png)
+![Kheterpal et al.](https://github.com/tkappen/recodePDFtable/blob/master/Images/15TT1.png)
+[link to publication](http://anesthesiology.pubs.asahq.org/article.aspx?articleid=1921932)
 <br />
 <br />
 To get the information from the total group, we have to calculate the weighted average 
