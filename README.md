@@ -19,7 +19,7 @@ A regular manuscript includes a 'Table 1' - or a baseline table.
 This provides background info on the characteristics of the subjects that are included.
 Such a table can look like this.   
 <br />
-![Wesselink et al.](https://github.com/tkappen/recodePDFtable/blob/master/Images/Wesselink%20et%20al%20-%20Table%201.png)
+![Bijker et al.](http://anesthesiology.pubs.asahq.org/data/Journals/JASA/931089/14TT1.png)
 <br/>
 <br />
 We can already see that there are multiple numbers within a single cell with multiple formats.
