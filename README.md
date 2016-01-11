@@ -41,7 +41,7 @@ The presented project thus aimed to:
 6. Provide functionality to get an appropriate format: continuous data require different thing from categorical data
 
 <br />
-[Go to example and explanation](https://github.com/tkappen/recodePDFtable/blob/master/PDF_table_reformatting.md)
+##[Go to example and explanation](https://github.com/tkappen/recodePDFtable/blob/master/PDF_table_reformatting.md)
 
 <br />
 ```
