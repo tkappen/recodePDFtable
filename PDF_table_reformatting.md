@@ -7,6 +7,8 @@ output:
     fig_caption: yes
 ---
 
+# Example of the recode PDF table functions
+
 
 
 ## Previous actions
@@ -25,12 +27,7 @@ Except for:
 
 ```r
 # Get list of data extract files
-files_full <- list.files("./Data extracts", full.names=T, pattern="*.csv")
-files_full
-```
-
-```
-## character(0)
+files_full <- list.files("Z:/Drive/Medicine/Science/Projecten/Esther Wesselink/Manuscripts/2. IOH and Outcomes Review/IOHReviewReadPDFs/Data extracts", full.names=T, pattern="*.csv")
 ```
 
 Multiple tables should be read. However, due to different formatting
@@ -56,40 +53,23 @@ have to repeat the process and would use the same information every time.
 #	altEncoding = "windows-1252", altFileEncoding = "437",
 ###	settoEncode =6, settoFileEncode =6, ### Don't need it, changed dataset
 #	checkData = TRUE, startCol = TRUE, subThousands = TRUE)
-# dput(myfiles2[2,], "./Data/tableStructures.R")
+# dput(myfiles2[2,], "Z:/Drive/Medicine/Science/Projecten/Esther Wesselink/Manuscripts/2. IOH and Outcomes Review/IOHReviewReadPDFs/Data/tableStructures.R")
 
 # Create more simple names from filenames
 m1 <- regexpr("[[:upper:]][[:alnum:][:space:]]+[.]",files_full)
-m2 <- regexpr("[[:digit:]]+",files_full)
+m2 <- regexpr("(?<=\\-)[[:digit:]]+",files_full, perl=TRUE)
 mynames <- paste(regmatches(files_full,m1), regmatches(files_full,m2))
 
+
 # Re-read existing table structure and load tables
-listStruct <- dget("./Data/tableStructures.R")
-```
-
-```
-## Warning in file(filename, "r"): cannot open file './Data/
-## tableStructures.R': No such file or directory
-```
-
-```
-## Error in file(filename, "r"): cannot open the connection
-```
-
-```r
+listStruct <- dget("Z:/Drive/Medicine/Science/Projecten/Esther Wesselink/Manuscripts/2. IOH and Outcomes Review/IOHReviewReadPDFs/Data/tableStructures.R")
 myfiles <- read.multi(files_full, 
 	baseEncoding = "UTF-8", baseFileEncoding = "windows-1252",
 	altEncoding = "windows-1252", altFileEncoding = "437",
  	listStruct= listStruct, row.names = mynames)
-```
 
-```
-## Error in mapply(tableRead, file = filelist, enc = enc, fileenc = fileenc, : zero-length inputs cannot be mixed with those of non-zero length
-```
-
-```r
 # Read only the tables into separte variable
-myfiles[1,2:3]
+myfiles[1,c(2,9)]
 ```
 
 ```
@@ -108,159 +88,71 @@ myfiles[1,2:3]
 ## [11,] "Encephalopathy "     "21 (38%) "  "11 (31%)" 
 ## [12,] "Variceal bleeding "  "21 (38%) "  "14 (39%)" 
 ## 
-## $`Monk et al. 2005`
-##       V1                                                                                             
-##  [1,] ""                                                                                             
-##  [2,] "Age (yr) "                                                                                    
-##  [3,] "Weight (kg) "                                                                                 
-##  [4,] "Body mass index (kg/m2) "                                                                     
-##  [5,] "Gender (female:male) "                                                                        
-##  [6,] "Preoperative Mini-Mental State examination score "                                            
-##  [7,] "Preoperative Beck Depression Inventory "                                                      
-##  [8,] "Preoperative State Trait Anxiety Inventory "                                                  
-##  [9,] "Educational level (yr) "                                                                      
-## [10,] "Race"                                                                                         
-## [11,] "White "                                                                                       
-## [12,] "Black "                                                                                       
-## [13,] "Other "                                                                                       
-## [14,] "Marital status"                                                                               
-## [15,] "Widowed or single "                                                                           
-## [16,] "Married or living as married "                                                                
-## [17,] "Medical history"                                                                              
-## [18,] "Heart disease "                                                                               
-## [19,] "Angina pectoris "                                                                             
-## [20,] "Myocardial infarction "                                                                       
-## [21,] "Hypertension "                                                                                
-## [22,] "Stroke "                                                                                      
-## [23,] "Hepatic disease "                                                                             
-## [24,] "Diabetes (insulin-dependent) "                                                                
-## [25,] "Peripheral ischemia "                                                                         
-## [26,] "Depression "                                                                                  
-## [27,] "Previous anesthetic "                                                                         
-## [28,] "Alcohol consumption (units/wk)"                                                               
-## [29,] "None "                                                                                        
-## [30,] "1<U+0096>7 "                                                                                         
-## [31,] "8<U+0096>14 "                                                                                        
-## [32,] "15 "                                                                                          
-## [33,] "Tobacco use (pack-years)"                                                                     
-## [34,] "0 "                                                                                           
-## [35,] "1<U+0096>10 "                                                                                        
-## [36,] "11<U+0096>20 "                                                                                       
-## [37,] "21 "                                                                                          
-## [38,] "New York Heart Association functional class"                                                  
-## [39,] "Class 1 "                                                                                     
-## [40,] "Class 2 "                                                                                     
-## [41,] "Class 3 or 4 "                                                                                
-## [42,] "Charlson Comorbidity Score"                                                                   
-## [43,] "0<U+0096>2 "                                                                                         
-## [44,] "3 "                                                                                           
-## [45,] "ASA physical status"                                                                          
-## [46,] "I "                                                                                           
-## [47,] "II "                                                                                          
-## [48,] "III or IV "                                                                                   
-## [49,] "Preoperative systolic blood pressure (mm Hg) "                                                
-## [50,] "Preoperative diastolic blood pressure (mm Hg) "                                               
-## [51,] "Preoperative hematocrit "                                                                     
-## [52,] "Preoperative hemoglobin "                                                                     
-## [53,] "Surgery type"                                                                                 
-## [54,] "Intracavitary "                                                                               
-## [55,] "Minimally invasive or superficial "                                                           
-## [56,] "Orthopedic "                                                                                  
-## [57,] "Surgical duration (h) "                                                                       
-## [58,] "Maintenance anesthetic"                                                                       
-## [59,] "Volatile "                                                                                    
-## [60,] "IV only "                                                                                     
-## [61,] "Unknown "                                                                                     
-## [62,] "Intraoperative opioid administration "                                                        
-## [63,] "Neuromuscular blockade "                                                                      
-## [64,] "Duration of systolic blood pressure 80 mm Hg (min), patients with non-zero duration (n 203) " 
-## [65,] "Duration of systolic blood pressure 160 mm Hg (min), patients with non-zero duration (n 331) "
-## [66,] "Duration of mean arterial blood pressure 55 mm Hg (min), patients with non-zero duration (n " 
-## [67,] "Duration of mean arterial blood pressure 100 mm Hg (min), patients with non-zero duration (n "
-## [68,] "Duration of heart rate 45 bpm (min), patients with non-zero duration (n 45) "                 
-## [69,] "Duration of heart rate 110 bpm (min), patients with non-zero duration (n 205) "               
-## [70,] "Cumulative deep hypnotic time (h) "                                                           
-##       V4                
-##  [1,] "(n = 0)"         
-##  [2,] "51 (37<U+0096>65)"      
-##  [3,] "82 (67<U+0096>100)"     
-##  [4,] "27.9 (24.1<U+0096>34.2)"
-##  [5,] "63.5%:36.5%"     
-##  [6,] "30 (29<U+0096>30)"      
-##  [7,] "5 (2<U+0096>10)"        
-##  [8,] "65 (54<U+0096>81)"      
-##  [9,] "13 (12<U+0096>15)"      
-## [10,] ""                
-## [11,] "89.4%"           
-## [12,] "9.4%"            
-## [13,] "1.2%"            
-## [14,] ""                
-## [15,] "33.3%"           
-## [16,] "66.7%"           
-## [17,] ""                
-## [18,] "10.2%"           
-## [19,] "5.7%"            
-## [20,] "5.5%"            
-## [21,] "33.1%"           
-## [22,] "3.6%"            
-## [23,] "5.2%"            
-## [24,] "3.9%"            
-## [25,] "8.1%"            
-## [26,] "16.2%"           
-## [27,] "91.0%"           
-## [28,] ""                
-## [29,] "75.8%"           
-## [30,] "19.5%"           
-## [31,] "3.3%"            
-## [32,] "1.4%"            
-## [33,] ""                
-## [34,] "50.8%"           
-## [35,] "14.8%"           
-## [36,] "10.2%"           
-## [37,] "24.2%"           
-## [38,] ""                
-## [39,] "67.5%"           
-## [40,] "23.8%"           
-## [41,] "8.7%"            
-## [42,] ""                
-## [43,] "81.4%"           
-## [44,] "18.6%"           
-## [45,] ""                
-## [46,] "13.1%"           
-## [47,] "51.9%"           
-## [48,] "35.0%"           
-## [49,] "131 (118<U+0096>145)"   
-## [50,] "78 (70<U+0096>84)"      
-## [51,] "37.6 (34.3<U+0096>40.4)"
-## [52,] "12.8 (11.6<U+0096>13.9)"
-## [53,] ""                
-## [54,] "55.8%"           
-## [55,] "18.3%"           
-## [56,] "25.9%"           
-## [57,] "3.1 (2.3<U+0096>4.3)"   
-## [58,] ""                
-## [59,] "90.9%"           
-## [60,] "8.3%"            
-## [61,] "0.8%"            
-## [62,] "96.0%"           
-## [63,] "88.3%"           
-## [64,] "5.0 (5.0<U+0096>10.0)"  
-## [65,] "10.0 (5.0<U+0096>20.0)" 
-## [66,] "10.0 (5.0<U+0096>15.0)" 
-## [67,] "20.0 (10.0<U+0096>40.0)"
-## [68,] "10.0 (5.0<U+0096>22.5)" 
-## [69,] "10.0 (5.0<U+0096>20.0)" 
-## [70,] "1.1 (0.3<U+0096>2.1)"
+## $`Nakamura et al. 2009`
+##       V1                                                        
+##  [1,] ""                                                        
+##  [2,] "Age (year-old) "                                         
+##  [3,] "Male (%) "                                               
+##  [4,] "Emergent operation (%) "                                 
+##  [5,] "Location of the thoracic aortic diseases"                
+##  [6,] "Proximal descending thoracic aorta adjacent to the Left "
+##  [7,] "subclavian artery (%)"                                   
+##  [8,] "Descending thoracic aorta (%) "                          
+##  [9,] "Entire descending thoracic aorta (%) "                   
+## [10,] "Aortic Pathology"                                        
+## [11,] "Degenerative aneurysm (%) "                              
+## [12,] "Chronic dissection (%) "                                 
+## [13,] "Traumatic aortic injury (%) "                            
+## [14,] "Postoperative pseudaneurysm (%) "                        
+## [15,] "Infection (%) "                                          
+## [16,] "Hypertension (%) "                                       
+## [17,] "Heart disease (%) "                                      
+## [18,] "COPD (%) "                                               
+## [19,] "Previous Cerebrovascular disease (%) "                   
+## [20,] "Preoperative renal dysfunction (%) "                     
+## [21,] "Previous thoracotomy for lung or aortic disease (%) "    
+## [22,] "Diabetes mellitus (%) "                                  
+## [23,] "Perioperative hypotension (%) "                          
+## [24,] "Reattachment of ICA to the graft "                       
+## [25,] "Cross-clamping the aortic arch (%) "                     
+## [26,] "Previous or concurrent AAA repair (%) "                  
+##       V2                 V4               
+##  [1,] "OS group (n 36) " "SG group (n 36)"
+##  [2,] "70.19 ± 10.1 "    "70.89 ± 9.4"    
+##  [3,] "66.7 "            "75.0"           
+##  [4,] "16.7 "            "13.9"           
+##  [5,] ""                 ""               
+##  [6,] "13.9 "            "13.9"           
+##  [7,] ""                 ""               
+##  [8,] "75.0 "            "75.0"           
+##  [9,] "11.1 "            "11.1"           
+## [10,] ""                 ""               
+## [11,] "66.7 "            "58.3"           
+## [12,] "22.2 "            "25.0"           
+## [13,] "8.3 "             "8.3"            
+## [14,] "0 "               "5.6"            
+## [15,] "2.8 "             "2.8"            
+## [16,] "91.7 "            "83.3"           
+## [17,] "16.7 "            "22.2"           
+## [18,] "13.9 "            "8.3"            
+## [19,] "5.6 "             "25.0"           
+## [20,] "11.1 "            "11.1"           
+## [21,] "0 "               "8.3"            
+## [22,] "11.1 "            "2.8"            
+## [23,] "8.3 "             "0"              
+## [24,] "5.6 "             "0"              
+## [25,] "13.9 "            "0"              
+## [26,] "0 "               "19.4"
 ```
 
 ```r
-myfiles[2,2:3]
+myfiles[2,c(2,9)]
 ```
 
 ```
 ## $`Lima et al. 2003`
 ## $file
-## [1] "./Data extracts/tabula-2003 - Renal Failure - Lima et al.csv"
+## [1] "Z:/Drive/Medicine/Science/Projecten/Esther Wesselink/Manuscripts/2. IOH and Outcomes Review/IOHReviewReadPDFs/Data extracts/tabula-2003 - Renal Failure - Lima et al.csv"
 ## 
 ## $cols
 ## [1] 2 3
@@ -280,18 +172,18 @@ myfiles[2,2:3]
 ## attr(,"class")
 ## [1] "tableStructure"
 ## 
-## $`Monk et al. 2005`
+## $`Nakamura et al. 2009`
 ## $file
-## [1] "./Data extracts/tabula-2005 - Anesthesia and Analgesia - Monk et al.csv"
+## [1] "Z:/Drive/Medicine/Science/Projecten/Esther Wesselink/Manuscripts/2. IOH and Outcomes Review/IOHReviewReadPDFs/Data extracts/tabula-2009 - Scandinavian Cardiovascular Journal - Nakamura et al.csv"
 ## 
 ## $cols
-## [1] 4
+## [1] 2 4
 ## 
 ## $cellN
-## [1] 0
+## [1] 1
 ## 
 ## $firstVar
-## [1] 1
+## [1] 2
 ## 
 ## $startCol
 ## [1] 2
@@ -322,12 +214,13 @@ This what that looks like:
 
 
 ```r
-grepTableSet(myfiles)[[15]]
+grepTableSet(myfiles)[15]
 ```
 
 ```
-## $V2
-## $V2$y.matrix
+## $`Siepe et al. 2011`
+## $`Siepe et al. 2011`$V2
+## $`Siepe et al. 2011`$V2$y.matrix
 ##        x[%] (SD_x)  (x%) x_(x[%]) x_(x)_abc   x±x  x__x x_(x-x) x_x-x
 ##  [1,] FALSE  FALSE FALSE    FALSE     FALSE FALSE FALSE   FALSE FALSE
 ##  [2,] FALSE  FALSE FALSE    FALSE     FALSE FALSE  TRUE   FALSE FALSE
@@ -383,20 +276,20 @@ grepTableSet(myfiles)[[15]]
 ## [16,]       FALSE FALSE FALSE FALSE FALSE  FALSE
 ## [17,]       FALSE FALSE FALSE FALSE FALSE  FALSE
 ## 
-## $V2$rowsum
+## $`Siepe et al. 2011`$V2$rowsum
 ##  [1] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
 ## 
-## $V2$uniqueGrep
+## $`Siepe et al. 2011`$V2$uniqueGrep
 ## [1] TRUE
 ## 
-## $V2$rowType
+## $`Siepe et al. 2011`$V2$rowType
 ##  [1] "n_pats"   "x__x"     "x_(x[%])" "x__x"     "x_(x[%])" "x_(x[%])"
 ##  [7] "x_(x[%])" "x_(x[%])" "x_(x[%])" "x_(x[%])" "x_(x[%])" "x_(x[%])"
 ## [13] "x__x"     "x__x"     "x__x"     "x__x"     "x__x"    
 ## 
 ## 
-## $V3
-## $V3$y.matrix
+## $`Siepe et al. 2011`$V3
+## $`Siepe et al. 2011`$V3$y.matrix
 ##        x[%] (SD_x)  (x%) x_(x[%]) x_(x)_abc   x±x  x__x x_(x-x) x_x-x
 ##  [1,] FALSE  FALSE FALSE    FALSE     FALSE FALSE FALSE   FALSE FALSE
 ##  [2,] FALSE  FALSE FALSE    FALSE     FALSE FALSE  TRUE   FALSE FALSE
@@ -452,13 +345,13 @@ grepTableSet(myfiles)[[15]]
 ## [16,]       FALSE FALSE FALSE FALSE FALSE  FALSE
 ## [17,]       FALSE FALSE FALSE FALSE FALSE  FALSE
 ## 
-## $V3$rowsum
+## $`Siepe et al. 2011`$V3$rowsum
 ##  [1] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
 ## 
-## $V3$uniqueGrep
+## $`Siepe et al. 2011`$V3$uniqueGrep
 ## [1] TRUE
 ## 
-## $V3$rowType
+## $`Siepe et al. 2011`$V3$rowType
 ##  [1] "n_pats"   "x__x"     "x_(x[%])" "x__x"     "x_(x[%])" "x_(x[%])"
 ##  [7] "x_(x[%])" "x_(x[%])" "x_(x[%])" "x_(x[%])" "x_(x[%])" "x_(x[%])"
 ## [13] "x__x"     "x__x"     "x__x"     "x__x"     "x__x"
@@ -500,46 +393,12 @@ and extract different numbers.
 An example:
 
 ```r
-tableGrepNum(myfiles)[[1]]
+tableGrepNum(myfiles)[1]
 ```
 
 ```
-## Warning in data.row.names(row.names, rowsi, i): some row.names duplicated:
-## 34 --> row.names NOT used
-```
-
-```
-## Warning in data.row.names(row.names, rowsi, i): some row.names duplicated:
-## 34 --> row.names NOT used
-```
-
-```
-## Warning in data.row.names(row.names, rowsi, i): some row.names duplicated:
-## 24,36,37,38,39 --> row.names NOT used
-```
-
-```
-## Warning in data.row.names(row.names, rowsi, i): some row.names duplicated:
-## 16,20,26,28,30 --> row.names NOT used
-```
-
-```
-## Warning in data.row.names(row.names, rowsi, i): some row.names duplicated:
-## 16,20,26,28,30 --> row.names NOT used
-```
-
-```
-## Warning in data.row.names(row.names, rowsi, i): some row.names duplicated:
-## 49,50 --> row.names NOT used
-```
-
-```
-## Warning in data.row.names(row.names, rowsi, i): some row.names duplicated:
-## 49,50 --> row.names NOT used
-```
-
-```
-## $V2
+## $`Barone et al. 2002`
+## $`Barone et al. 2002`$V2
 ##                                                                     x
 ##                                                               (n = 0)
 ## Mean age/range                                       75 ± 10 (59-96) 
@@ -583,7 +442,7 @@ tableGrepNum(myfiles)[[1]]
 ## Estimated blood loss (mL)                                 714       NA
 ## Intravenous fluids given in the operating room (mL)      1352       NA
 ## 
-## $V3
+## $`Barone et al. 2002`$V3
 ##                                                                    x
 ##                                                              (n = 0)
 ## Mean age/range                                       74 ± 11 (56-91)
@@ -628,7 +487,6 @@ tableGrepNum(myfiles)[[1]]
 ## Intravenous fluids given in the operating room (mL)      1221       NA
 ```
 
-
 ## Weighted averages
 
 Up till now we assumed that tables with multiples columns should have a weighted average for each variable.
@@ -653,17 +511,8 @@ For some tables the function will ask for input on the type for `x` (one value o
 # get the default format type for all files
 # dFormat <- getDefaultTypes(myfiles, checkFormats = TRUE)
 # At the moment no function is available to check 
-# dput(dFormat, "./Data/default_formats_.R")
-dFormat <- dget("./Data/default_formats_.R")
-```
-
-```
-## Warning in file(filename, "r"): cannot open file './Data/
-## default_formats_.R': No such file or directory
-```
-
-```
-## Error in file(filename, "r"): cannot open the connection
+# dput(dFormat, "Z:/Drive/Medicine/Science/Projecten/Esther Wesselink/Manuscripts/2. IOH and Outcomes Review/IOHReviewReadPDFs/Data/default_formats_.R")
+dFormat <- dget("Z:/Drive/Medicine/Science/Projecten/Esther Wesselink/Manuscripts/2. IOH and Outcomes Review/IOHReviewReadPDFs/Data/default_formats_.R")
 ```
   
 
@@ -699,17 +548,8 @@ However, sometimes this `N` is missing. We used a [function](https://github.com/
 # Fill in the missing N = in tables
 #
 # missingN <- fillNnull(myfiles)
-# dput(missingN, "./Data/missing_Ns.R")
-missingN <- dget("./Data/missing_Ns.R")
-```
-
-```
-## Warning in file(filename, "r"): cannot open file './Data/missing_Ns.R': No
-## such file or directory
-```
-
-```
-## Error in file(filename, "r"): cannot open the connection
+# dput(missingN, "Z:/Drive/Medicine/Science/Projecten/Esther Wesselink/Manuscripts/2. IOH and Outcomes Review/IOHReviewReadPDFs/Data/missing_Ns.R")
+missingN <- dget("Z:/Drive/Medicine/Science/Projecten/Esther Wesselink/Manuscripts/2. IOH and Outcomes Review/IOHReviewReadPDFs/Data/missing_Ns.R")
 ```
 
 ### Changing some default cell types
@@ -774,23 +614,6 @@ dFormat2$`Petsiti et al. 2015`[3,"formatFUN"] <- "paste(p1,\"%:\",p2,\"%\", sep 
 
 
 
-```
-## Warning in file(filename, "r", encoding = encoding): cannot open file './
-## Data/changeFormat_tables.R': No such file or directory
-```
-
-```
-## Error in file(filename, "r", encoding = encoding): cannot open the connection
-```
-
-```
-## Warning in file(filename, "r", encoding = encoding): cannot open file './
-## Data/calculate_missing_Percentages.R': No such file or directory
-```
-
-```
-## Error in file(filename, "r", encoding = encoding): cannot open the connection
-```
 
 ### Calculate and format summary data
 
@@ -806,10 +629,11 @@ And the result:
 
 
 ```r
-formatTables(mywtdtables, dFormat2, formatonly=TRUE)[[11]]
+formatTables(mywtdtables, dFormat2, formatonly=TRUE)[11]
 ```
 
 ```
+## $`Kheterpal et al. 2009`
 ##                                                           y
 ## 1                                                      7740
 ## Age 68                                                  23%

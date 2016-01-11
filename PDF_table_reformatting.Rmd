@@ -7,6 +7,8 @@ output:
     fig_caption: yes
 ---
 
+# Example of the recode PDF table functions
+
 ```{r packages, results='hide', echo=FALSE}
 library(knitr)
 library(markdown)
@@ -25,16 +27,11 @@ Except for:
   
 ## Read baseline data file
 
-```{r setdir, results='hide', echo=FALSE}
-wd <- "Z:/Drive/Medicine/Science/Projecten/Esther Wesselink/Manuscripts/2. IOH and Outcomes Review/IOHReviewReadPDFs"
-setwd(wd)
-getwd()
-```
+
 
 ```{r readfilenames}
 # Get list of data extract files
-files_full <- list.files("./Data extracts", full.names=T, pattern="*.csv")
-files_full
+files_full <- list.files("Z:/Drive/Medicine/Science/Projecten/Esther Wesselink/Manuscripts/2. IOH and Outcomes Review/IOHReviewReadPDFs/Data extracts", full.names=T, pattern="*.csv")
 ```
 
 Multiple tables should be read. However, due to different formatting
@@ -70,23 +67,24 @@ have to repeat the process and would use the same information every time.
 #	altEncoding = "windows-1252", altFileEncoding = "437",
 ###	settoEncode =6, settoFileEncode =6, ### Don't need it, changed dataset
 #	checkData = TRUE, startCol = TRUE, subThousands = TRUE)
-# dput(myfiles2[2,], "./Data/tableStructures.R")
+# dput(myfiles2[2,], "Z:/Drive/Medicine/Science/Projecten/Esther Wesselink/Manuscripts/2. IOH and Outcomes Review/IOHReviewReadPDFs/Data/tableStructures.R")
 
 # Create more simple names from filenames
 m1 <- regexpr("[[:upper:]][[:alnum:][:space:]]+[.]",files_full)
-m2 <- regexpr("[[:digit:]]+",files_full)
+m2 <- regexpr("(?<=\\-)[[:digit:]]+",files_full, perl=TRUE)
 mynames <- paste(regmatches(files_full,m1), regmatches(files_full,m2))
 
+
 # Re-read existing table structure and load tables
-listStruct <- dget("./Data/tableStructures.R")
+listStruct <- dget("Z:/Drive/Medicine/Science/Projecten/Esther Wesselink/Manuscripts/2. IOH and Outcomes Review/IOHReviewReadPDFs/Data/tableStructures.R")
 myfiles <- read.multi(files_full, 
 	baseEncoding = "UTF-8", baseFileEncoding = "windows-1252",
 	altEncoding = "windows-1252", altFileEncoding = "437",
  	listStruct= listStruct, row.names = mynames)
 
 # Read only the tables into separte variable
-myfiles[1,2:3]
-myfiles[2,2:3]
+myfiles[1,c(2,9)]
+myfiles[2,c(2,9)]
 ```
 
 ## Explore data patterns
@@ -107,7 +105,7 @@ This what that looks like:
 
 
 ```{r grepset}
-grepTableSet(myfiles)[[15]]
+grepTableSet(myfiles)[15]
 ```
 
 ```{r matchset}
@@ -137,10 +135,9 @@ and extract different numbers.
 [Number extraction functions](https://github.com/tkappen/recodePDFtable/blob/master/grepFunctions/Baseline_grep_calls_split.R)
 
 An example:
-```{r numericalset}
-tableGrepNum(myfiles)[[1]]
+```{r numericalset, warning=FALSE}
+tableGrepNum(myfiles)[1]
 ```
-
 
 ## Weighted averages
 
@@ -165,8 +162,8 @@ For some tables the function will ask for input on the type for `x` (one value o
 # get the default format type for all files
 # dFormat <- getDefaultTypes(myfiles, checkFormats = TRUE)
 # At the moment no function is available to check 
-# dput(dFormat, "./Data/default_formats_.R")
-dFormat <- dget("./Data/default_formats_.R")
+# dput(dFormat, "Z:/Drive/Medicine/Science/Projecten/Esther Wesselink/Manuscripts/2. IOH and Outcomes Review/IOHReviewReadPDFs/Data/default_formats_.R")
+dFormat <- dget("Z:/Drive/Medicine/Science/Projecten/Esther Wesselink/Manuscripts/2. IOH and Outcomes Review/IOHReviewReadPDFs/Data/default_formats_.R")
 ```
   
 
@@ -201,8 +198,8 @@ However, sometimes this `N` is missing. We used a [function](https://github.com/
 # Fill in the missing N = in tables
 #
 # missingN <- fillNnull(myfiles)
-# dput(missingN, "./Data/missing_Ns.R")
-missingN <- dget("./Data/missing_Ns.R")
+# dput(missingN, "Z:/Drive/Medicine/Science/Projecten/Esther Wesselink/Manuscripts/2. IOH and Outcomes Review/IOHReviewReadPDFs/Data/missing_Ns.R")
+missingN <- dget("Z:/Drive/Medicine/Science/Projecten/Esther Wesselink/Manuscripts/2. IOH and Outcomes Review/IOHReviewReadPDFs/Data/missing_Ns.R")
 ```
 
 ### Changing some default cell types
@@ -277,7 +274,7 @@ myformatted <- formatTables(mywtdtables, dFormat)
 
 # Run script to make custom changes to specific lines
 # within dFormat tables
-source("./Data/changeFormat_tables.R")
+source("Z:/Drive/Medicine/Science/Projecten/Esther Wesselink/Manuscripts/2. IOH and Outcomes Review/IOHReviewReadPDFs/Data/changeFormat_tables.R")
 #  Renew weighted and formatted tables
 mywtdtables <- weightTables(myfiles, missingN, types = dFormat)
 myformatted <- formatTables(mywtdtables, dFormat)
@@ -285,7 +282,7 @@ myformatted <- formatTables(mywtdtables, dFormat)
 # Run script to calculate missing percentages for some tables
 # It also outputs dFormat2, because dFormat should still be used for 
 # weighting tables
-source("./Data/calculate_missing_Percentages.R")
+source("Z:/Drive/Medicine/Science/Projecten/Esther Wesselink/Manuscripts/2. IOH and Outcomes Review/IOHReviewReadPDFs/Data/calculate_missing_Percentages.R")
 myformatted <- formatTables(mywtdtables, dFormat2)
 ```
 
@@ -302,7 +299,7 @@ And the result:
 ![Kheterpal et al.](https://github.com/tkappen/recodePDFtable/blob/master/Images/15TT1.png)
 
 ```{r getResult}
-formatTables(mywtdtables, dFormat2, formatonly=TRUE)[[11]]
+formatTables(mywtdtables, dFormat2, formatonly=TRUE)[11]
 ```
 
 ### Writing to datasets
