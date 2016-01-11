@@ -19,14 +19,14 @@ A regular manuscript includes a 'Table 1' - or a baseline table.
 This provides background info on the characteristics of the subjects that are included.
 Such a table can look like this.   
 <br />
-![Wesselink et al.](https://github.com/tkappen/IOHReviewReadPDFs/blob/master/Images/Wesselink%20et%20al%20-%20Table%201.png)
+![Wesselink et al.](https://github.com/tkappen/recodePDFtable/blob/master/Images/Wesselink%20et%20al%20-%20Table%201.png)
 <br/>
 <br />
 We can already see that there are multiple numbers within a single cell with multiple formats.
 Yet, this table includes the data from the total cohort of subjects.
 This table for example, shows only the data for different subgroups.  
 <br />
-![Sun et al.](https://github.com/tkappen/IOHReviewReadPDFs/blob/master/Images/Sun%20et%20al%20-%20Table%201.png)
+![Sun et al.](https://github.com/tkappen/recodePDFtable/blob/master/Images/Sun%20et%20al%20-%20Table%201.png)
 <br />
 <br />
 To get the information from the total group, we have to calculate the weighted average 
