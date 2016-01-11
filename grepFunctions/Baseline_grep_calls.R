@@ -102,5 +102,3 @@ matchedTable <- function(x, ...) {
 		return(y)
 	}
 }
-
-sapply(grepTableSet(myfiles), findTrue)
