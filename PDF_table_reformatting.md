@@ -7,7 +7,7 @@ output:
     fig_caption: yes
 ---
 
-
+# Example of the recode PDF table functions
 
 ## Previous actions
 Exported all Table 1 for the articles with [Tabula Win 1.0.1](https://github.com/tabulapdf/tabula).  
@@ -97,13 +97,13 @@ myfiles[1,2:3]
 ##       V1                    V2           V3         
 ##  [1,] "N "                  "56 (61%) "  "36 (39%)" 
 ##  [2,] "Sex (M/F) "          "29/27 "     "19/17"    
-##  [3,] "Age (years) "        "46±13 "     "41±16"    
-##  [4,] "Urea (mg/dL) "       "39±28 "     "27±11"    
-##  [5,] "Creatinine (mg/dL) " "1.16±0.54 " "0.87±0.27"
-##  [6,] "Potassium (mEq/L) "  "4.3±0.6 "   "3.9±0.3"  
-##  [7,] "Sodium (mEq/L) "     "136±7 "     "137±5"    
-##  [8,] "Albumin (g/dL) "     "3.3±0.1 "   "3.3±0.1"  
-##  [9,] "Bilirubin (mg/dL) "  "5.8±1.1 "   "2.7±0.9"  
+##  [3,] "Age (years) "        "46Â±13 "     "41Â±16"    
+##  [4,] "Urea (mg/dL) "       "39Â±28 "     "27Â±11"    
+##  [5,] "Creatinine (mg/dL) " "1.16Â±0.54 " "0.87Â±0.27"
+##  [6,] "Potassium (mEq/L) "  "4.3Â±0.6 "   "3.9Â±0.3"  
+##  [7,] "Sodium (mEq/L) "     "136Â±7 "     "137Â±5"    
+##  [8,] "Albumin (g/dL) "     "3.3Â±0.1 "   "3.3Â±0.1"  
+##  [9,] "Bilirubin (mg/dL) "  "5.8Â±1.1 "   "2.7Â±0.9"  
 ## [10,] "Ascites "            "41 (73%) "  "22 (61%)" 
 ## [11,] "Encephalopathy "     "21 (38%) "  "11 (31%)" 
 ## [12,] "Variceal bleeding "  "21 (38%) "  "14 (39%)" 
@@ -328,7 +328,7 @@ grepTableSet(myfiles)[[15]]
 ```
 ## $V2
 ## $V2$y.matrix
-##        x[%] (SD_x)  (x%) x_(x[%]) x_(x)_abc   x±x  x__x x_(x-x) x_x-x
+##        x[%] (SD_x)  (x%) x_(x[%]) x_(x)_abc   xÂ±x  x__x x_(x-x) x_x-x
 ##  [1,] FALSE  FALSE FALSE    FALSE     FALSE FALSE FALSE   FALSE FALSE
 ##  [2,] FALSE  FALSE FALSE    FALSE     FALSE FALSE  TRUE   FALSE FALSE
 ##  [3,] FALSE  FALSE FALSE     TRUE     FALSE FALSE FALSE   FALSE FALSE
@@ -397,7 +397,7 @@ grepTableSet(myfiles)[[15]]
 ## 
 ## $V3
 ## $V3$y.matrix
-##        x[%] (SD_x)  (x%) x_(x[%]) x_(x)_abc   x±x  x__x x_(x-x) x_x-x
+##        x[%] (SD_x)  (x%) x_(x[%]) x_(x)_abc   xÂ±x  x__x x_(x-x) x_x-x
 ##  [1,] FALSE  FALSE FALSE    FALSE     FALSE FALSE FALSE   FALSE FALSE
 ##  [2,] FALSE  FALSE FALSE    FALSE     FALSE FALSE  TRUE   FALSE FALSE
 ##  [3,] FALSE  FALSE FALSE     TRUE     FALSE FALSE FALSE   FALSE FALSE
@@ -542,7 +542,7 @@ tableGrepNum(myfiles)[[1]]
 ## $V2
 ##                                                                     x
 ##                                                               (n = 0)
-## Mean age/range                                       75 ± 10 (59-96) 
+## Mean age/range                                       75 Â± 10 (59-96) 
 ## Gender (male/female)                                            11/9 
 ## Diabetes mellitus                                             6 (30) 
 ## Hypertension                                                 11 (55) 
@@ -551,9 +551,9 @@ tableGrepNum(myfiles)[[1]]
 ## Medical clearance                                            15 (75) 
 ## Emergency surgery                                             3 (15) 
 ## ASA classification                                               3.0 
-## Operative duration (minutes)                                124 ± 74 
-## Estimated blood loss (mL)                                  292 ± 714 
-## Intravenous fluids given in the operating room (mL)      1338 ± 1352 
+## Operative duration (minutes)                                124 Â± 74 
+## Estimated blood loss (mL)                                  292 Â± 714 
+## Intravenous fluids given in the operating room (mL)      1338 Â± 1352 
 ##                                                      pattern1 pattern2
 ##                                                             0       NA
 ## Mean age/range                                             75       NA
@@ -586,7 +586,7 @@ tableGrepNum(myfiles)[[1]]
 ## $V3
 ##                                                                    x
 ##                                                              (n = 0)
-## Mean age/range                                       74 ± 11 (56-91)
+## Mean age/range                                       74 Â± 11 (56-91)
 ## Gender (male/female)                                           22/18
 ## Diabetes mellitus                                             5 (13)
 ## Hypertension                                                 13 (33)
@@ -595,9 +595,9 @@ tableGrepNum(myfiles)[[1]]
 ## Medical clearance                                            27 (68)
 ## Emergency surgery                                            13 (33)
 ## ASA classification                                               2.8
-## Operative duration (minutes)                                124 ± 46
-## Estimated blood loss (mL)                                  241 ± 289
-## Intravenous fluids given in the operating room (mL)      1447 ± 1221
+## Operative duration (minutes)                                124 Â± 46
+## Estimated blood loss (mL)                                  241 Â± 289
+## Intravenous fluids given in the operating room (mL)      1447 Â± 1221
 ##                                                      pattern1 pattern2
 ##                                                           0.0       NA
 ## Mean age/range                                           74.0       NA
@@ -671,7 +671,7 @@ dFormat <- dget("./Data/default_formats_.R")
 Barone et al. 2002
       V1                                                   V2               V3             
  [1,]                                                      (n = 0)          (n = 0)        
- [2,] Mean age/range                                       75 ± 10 (59-96)  74 ± 11 (56-91)
+ [2,] Mean age/range                                       75 Â± 10 (59-96)  74 Â± 11 (56-91)
  [3,] Gender (male/female)                                 11/9             22/18          
  [4,] Diabetes mellitus                                    6 (30)           5 (13)         
  [5,] Hypertension                                         11 (55)          13 (33)        
@@ -680,9 +680,9 @@ Barone et al. 2002
  [8,] Medical clearance                                    15 (75)          27 (68)        
  [9,] Emergency surgery                                    3 (15)           13 (33)        
 [10,] ASA classification                                   3.0              2.8            
-[11,] Operative duration (minutes)                         124 ± 74         124 ± 46       
-[12,] Estimated blood loss (mL)                            292 ± 714        241 ± 289      
-[13,] Intravenous fluids given in the operating room (mL)  1338 ± 1352      1447 ± 1221    
+[11,] Operative duration (minutes)                         124 Â± 74         124 Â± 46       
+[12,] Estimated blood loss (mL)                            292 Â± 714        241 Â± 289      
+[13,] Intravenous fluids given in the operating room (mL)  1338 Â± 1352      1447 Â± 1221    
 
 Is this a frequency (press 1), mean (2) or a percentage (3)?
 ```
@@ -735,11 +735,11 @@ addRows <- function(x) {
 	cbind(n,x)
 }
 
-# `Taffé et al. 2009`
-addRows(myformatted$`Taffé et al. 2009`)
+# `TaffÃ© et al. 2009`
+addRows(myformatted$`TaffÃ© et al. 2009`)
 i <- c(2,3,22)
 t <- c(2,5,2 )
-dFormat$`Taffé et al. 2009`[i,] <- ct[t,]
+dFormat$`TaffÃ© et al. 2009`[i,] <- ct[t,]
 
 # `Bijker et al. 2009`
 addRows(myformatted$`Bijker et al. 2009`)
