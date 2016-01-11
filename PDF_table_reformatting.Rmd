@@ -26,7 +26,7 @@ Except for:
 - Reich et al (no baseline description)  
   
 ## Read baseline data file
-
+Get all files that could be exported from a PDF
 
 
 ```{r readfilenames}
