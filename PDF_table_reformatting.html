@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+<title>Previous actions</title>
+
+<script type="text/javascript">
+window.onload = function() {
+  var imgs = document.getElementsByTagName('img'), i, img;
+  for (i = 0; i < imgs.length; i++) {
+    img = imgs[i];
+    // center an image if it is the only element of its parent
+    if (img.parentElement.childElementCount === 1)
+      img.parentElement.style.textAlign = 'center';
+  }
+};
+</script>
+
+<!-- Styles for R syntax highlighter -->
+<style type="text/css">
+   pre .operator,
+   pre .paren {
+     color: rgb(104, 118, 135)
+   }
+
+   pre .literal {
+     color: #990073
+   }
+
+   pre .number {
+     color: #099;
+   }
+
+   pre .comment {
+     color: #998;
+     font-style: italic
+   }
+
+   pre .keyword {
+     color: #900;
+     font-weight: bold
+   }
+
+   pre .identifier {
+     color: rgb(0, 0, 0);
+   }
+
+   pre .string {
+     color: #d14;
+   }
+</style>
+
+<!-- R syntax highlighter -->
+<script type="text/javascript">
+var hljs=new function(){function m(p){return p.replace(/&/gm,"&amp;").replace(/</gm,"&lt;")}function f(r,q,p){return RegExp(q,"m"+(r.cI?"i":"")+(p?"g":""))}function b(r){for(var p=0;p<r.childNodes.length;p++){var q=r.childNodes[p];if(q.nodeName=="CODE"){return q}if(!(q.nodeType==3&&q.nodeValue.match(/\s+/))){break}}}function h(t,s){var p="";for(var r=0;r<t.childNodes.length;r++){if(t.childNodes[r].nodeType==3){var q=t.childNodes[r].nodeValue;if(s){q=q.replace(/\n/g,"")}p+=q}else{if(t.childNodes[r].nodeName=="BR"){p+="\n"}else{p+=h(t.childNodes[r])}}}if(/MSIE [678]/.test(navigator.userAgent)){p=p.replace(/\r/g,"\n")}return p}function a(s){var r=s.className.split(/\s+/);r=r.concat(s.parentNode.className.split(/\s+/));for(var q=0;q<r.length;q++){var p=r[q].replace(/^language-/,"");if(e[p]){return p}}}function c(q){var p=[];(function(s,t){for(var r=0;r<s.childNodes.length;r++){if(s.childNodes[r].nodeType==3){t+=s.childNodes[r].nodeValue.length}else{if(s.childNodes[r].nodeName=="BR"){t+=1}else{if(s.childNodes[r].nodeType==1){p.push({event:"start",offset:t,node:s.childNodes[r]});t=arguments.callee(s.childNodes[r],t);p.push({event:"stop",offset:t,node:s.childNodes[r]})}}}}return t})(q,0);return p}function k(y,w,x){var q=0;var z="";var s=[];function u(){if(y.length&&w.length){if(y[0].offset!=w[0].offset){return(y[0].offset<w[0].offset)?y:w}else{return w[0].event=="start"?y:w}}else{return y.length?y:w}}function t(D){var A="<"+D.nodeName.toLowerCase();for(var B=0;B<D.attributes.length;B++){var C=D.attributes[B];A+=" "+C.nodeName.toLowerCase();if(C.value!==undefined&&C.value!==false&&C.value!==null){A+='="'+m(C.value)+'"'}}return A+">"}while(y.length||w.length){var v=u().splice(0,1)[0];z+=m(x.substr(q,v.offset-q));q=v.offset;if(v.event=="start"){z+=t(v.node);s.push(v.node)}else{if(v.event=="stop"){var p,r=s.length;do{r--;p=s[r];z+=("</"+p.nodeName.toLowerCase()+">")}while(p!=v.node);s.splice(r,1);while(r<s.length){z+=t(s[r]);r++}}}}return z+m(x.substr(q))}function j(){function q(x,y,v){if(x.compiled){return}var u;var s=[];if(x.k){x.lR=f(y,x.l||hljs.IR,true);for(var w in x.k){if(!x.k.hasOwnProperty(w)){continue}if(x.k[w] instanceof Object){u=x.k[w]}else{u=x.k;w="keyword"}for(var r in u){if(!u.hasOwnProperty(r)){continue}x.k[r]=[w,u[r]];s.push(r)}}}if(!v){if(x.bWK){x.b="\\b("+s.join("|")+")\\s"}x.bR=f(y,x.b?x.b:"\\B|\\b");if(!x.e&&!x.eW){x.e="\\B|\\b"}if(x.e){x.eR=f(y,x.e)}}if(x.i){x.iR=f(y,x.i)}if(x.r===undefined){x.r=1}if(!x.c){x.c=[]}x.compiled=true;for(var t=0;t<x.c.length;t++){if(x.c[t]=="self"){x.c[t]=x}q(x.c[t],y,false)}if(x.starts){q(x.starts,y,false)}}for(var p in e){if(!e.hasOwnProperty(p)){continue}q(e[p].dM,e[p],true)}}function d(B,C){if(!j.called){j();j.called=true}function q(r,M){for(var L=0;L<M.c.length;L++){if((M.c[L].bR.exec(r)||[null])[0]==r){return M.c[L]}}}function v(L,r){if(D[L].e&&D[L].eR.test(r)){return 1}if(D[L].eW){var M=v(L-1,r);return M?M+1:0}return 0}function w(r,L){return L.i&&L.iR.test(r)}function K(N,O){var M=[];for(var L=0;L<N.c.length;L++){M.push(N.c[L].b)}var r=D.length-1;do{if(D[r].e){M.push(D[r].e)}r--}while(D[r+1].eW);if(N.i){M.push(N.i)}return f(O,M.join("|"),true)}function p(M,L){var N=D[D.length-1];if(!N.t){N.t=K(N,E)}N.t.lastIndex=L;var r=N.t.exec(M);return r?[M.substr(L,r.index-L),r[0],false]:[M.substr(L),"",true]}function z(N,r){var L=E.cI?r[0].toLowerCase():r[0];var M=N.k[L];if(M&&M instanceof Array){return M}return false}function F(L,P){L=m(L);if(!P.k){return L}var r="";var O=0;P.lR.lastIndex=0;var M=P.lR.exec(L);while(M){r+=L.substr(O,M.index-O);var N=z(P,M);if(N){x+=N[1];r+='<span class="'+N[0]+'">'+M[0]+"</span>"}else{r+=M[0]}O=P.lR.lastIndex;M=P.lR.exec(L)}return r+L.substr(O,L.length-O)}function J(L,M){if(M.sL&&e[M.sL]){var r=d(M.sL,L);x+=r.keyword_count;return r.value}else{return F(L,M)}}function I(M,r){var L=M.cN?'<span class="'+M.cN+'">':"";if(M.rB){y+=L;M.buffer=""}else{if(M.eB){y+=m(r)+L;M.buffer=""}else{y+=L;M.buffer=r}}D.push(M);A+=M.r}function G(N,M,Q){var R=D[D.length-1];if(Q){y+=J(R.buffer+N,R);return false}var P=q(M,R);if(P){y+=J(R.buffer+N,R);I(P,M);return P.rB}var L=v(D.length-1,M);if(L){var O=R.cN?"</span>":"";if(R.rE){y+=J(R.buffer+N,R)+O}else{if(R.eE){y+=J(R.buffer+N,R)+O+m(M)}else{y+=J(R.buffer+N+M,R)+O}}while(L>1){O=D[D.length-2].cN?"</span>":"";y+=O;L--;D.length--}var r=D[D.length-1];D.length--;D[D.length-1].buffer="";if(r.starts){I(r.starts,"")}return R.rE}if(w(M,R)){throw"Illegal"}}var E=e[B];var D=[E.dM];var A=0;var x=0;var y="";try{var s,u=0;E.dM.buffer="";do{s=p(C,u);var t=G(s[0],s[1],s[2]);u+=s[0].length;if(!t){u+=s[1].length}}while(!s[2]);if(D.length>1){throw"Illegal"}return{r:A,keyword_count:x,value:y}}catch(H){if(H=="Illegal"){return{r:0,keyword_count:0,value:m(C)}}else{throw H}}}function g(t){var p={keyword_count:0,r:0,value:m(t)};var r=p;for(var q in e){if(!e.hasOwnProperty(q)){continue}var s=d(q,t);s.language=q;if(s.keyword_count+s.r>r.keyword_count+r.r){r=s}if(s.keyword_count+s.r>p.keyword_count+p.r){r=p;p=s}}if(r.language){p.second_best=r}return p}function i(r,q,p){if(q){r=r.replace(/^((<[^>]+>|\t)+)/gm,function(t,w,v,u){return w.replace(/\t/g,q)})}if(p){r=r.replace(/\n/g,"<br>")}return r}function n(t,w,r){var x=h(t,r);var v=a(t);var y,s;if(v){y=d(v,x)}else{return}var q=c(t);if(q.length){s=document.createElement("pre");s.innerHTML=y.value;y.value=k(q,c(s),x)}y.value=i(y.value,w,r);var u=t.className;if(!u.match("(\\s|^)(language-)?"+v+"(\\s|$)")){u=u?(u+" "+v):v}if(/MSIE [678]/.test(navigator.userAgent)&&t.tagName=="CODE"&&t.parentNode.tagName=="PRE"){s=t.parentNode;var p=document.createElement("div");p.innerHTML="<pre><code>"+y.value+"</code></pre>";t=p.firstChild.firstChild;p.firstChild.cN=s.cN;s.parentNode.replaceChild(p.firstChild,s)}else{t.innerHTML=y.value}t.className=u;t.result={language:v,kw:y.keyword_count,re:y.r};if(y.second_best){t.second_best={language:y.second_best.language,kw:y.second_best.keyword_count,re:y.second_best.r}}}function o(){if(o.called){return}o.called=true;var r=document.getElementsByTagName("pre");for(var p=0;p<r.length;p++){var q=b(r[p]);if(q){n(q,hljs.tabReplace)}}}function l(){if(window.addEventListener){window.addEventListener("DOMContentLoaded",o,false);window.addEventListener("load",o,false)}else{if(window.attachEvent){window.attachEvent("onload",o)}else{window.onload=o}}}var e={};this.LANGUAGES=e;this.highlight=d;this.highlightAuto=g;this.fixMarkup=i;this.highlightBlock=n;this.initHighlighting=o;this.initHighlightingOnLoad=l;this.IR="[a-zA-Z][a-zA-Z0-9_]*";this.UIR="[a-zA-Z_][a-zA-Z0-9_]*";this.NR="\\b\\d+(\\.\\d+)?";this.CNR="\\b(0[xX][a-fA-F0-9]+|(\\d+(\\.\\d*)?|\\.\\d+)([eE][-+]?\\d+)?)";this.BNR="\\b(0b[01]+)";this.RSR="!|!=|!==|%|%=|&|&&|&=|\\*|\\*=|\\+|\\+=|,|\\.|-|-=|/|/=|:|;|<|<<|<<=|<=|=|==|===|>|>=|>>|>>=|>>>|>>>=|\\?|\\[|\\{|\\(|\\^|\\^=|\\||\\|=|\\|\\||~";this.ER="(?![\\s\\S])";this.BE={b:"\\\\.",r:0};this.ASM={cN:"string",b:"'",e:"'",i:"\\n",c:[this.BE],r:0};this.QSM={cN:"string",b:'"',e:'"',i:"\\n",c:[this.BE],r:0};this.CLCM={cN:"comment",b:"//",e:"$"};this.CBLCLM={cN:"comment",b:"/\\*",e:"\\*/"};this.HCM={cN:"comment",b:"#",e:"$"};this.NM={cN:"number",b:this.NR,r:0};this.CNM={cN:"number",b:this.CNR,r:0};this.BNM={cN:"number",b:this.BNR,r:0};this.inherit=function(r,s){var p={};for(var q in r){p[q]=r[q]}if(s){for(var q in s){p[q]=s[q]}}return p}}();hljs.LANGUAGES.cpp=function(){var a={keyword:{"false":1,"int":1,"float":1,"while":1,"private":1,"char":1,"catch":1,"export":1,virtual:1,operator:2,sizeof:2,dynamic_cast:2,typedef:2,const_cast:2,"const":1,struct:1,"for":1,static_cast:2,union:1,namespace:1,unsigned:1,"long":1,"throw":1,"volatile":2,"static":1,"protected":1,bool:1,template:1,mutable:1,"if":1,"public":1,friend:2,"do":1,"return":1,"goto":1,auto:1,"void":2,"enum":1,"else":1,"break":1,"new":1,extern:1,using:1,"true":1,"class":1,asm:1,"case":1,typeid:1,"short":1,reinterpret_cast:2,"default":1,"double":1,register:1,explicit:1,signed:1,typename:1,"try":1,"this":1,"switch":1,"continue":1,wchar_t:1,inline:1,"delete":1,alignof:1,char16_t:1,char32_t:1,constexpr:1,decltype:1,noexcept:1,nullptr:1,static_assert:1,thread_local:1,restrict:1,_Bool:1,complex:1},built_in:{std:1,string:1,cin:1,cout:1,cerr:1,clog:1,stringstream:1,istringstream:1,ostringstream:1,auto_ptr:1,deque:1,list:1,queue:1,stack:1,vector:1,map:1,set:1,bitset:1,multiset:1,multimap:1,unordered_set:1,unordered_map:1,unordered_multiset:1,unordered_multimap:1,array:1,shared_ptr:1}};return{dM:{k:a,i:"</",c:[hljs.CLCM,hljs.CBLCLM,hljs.QSM,{cN:"string",b:"'\\\\?.",e:"'",i:"."},{cN:"number",b:"\\b(\\d+(\\.\\d*)?|\\.\\d+)(u|U|l|L|ul|UL|f|F)"},hljs.CNM,{cN:"preprocessor",b:"#",e:"$"},{cN:"stl_container",b:"\\b(deque|list|queue|stack|vector|map|set|bitset|multiset|multimap|unordered_map|unordered_set|unordered_multiset|unordered_multimap|array)\\s*<",e:">",k:a,r:10,c:["self"]}]}}}();hljs.LANGUAGES.r={dM:{c:[hljs.HCM,{cN:"number",b:"\\b0[xX][0-9a-fA-F]+[Li]?\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\b\\d+(?:[eE][+\\-]?\\d*)?L\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\b\\d+\\.(?!\\d)(?:i\\b)?",e:hljs.IMMEDIATE_RE,r:1},{cN:"number",b:"\\b\\d+(?:\\.\\d*)?(?:[eE][+\\-]?\\d*)?i?\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\.\\d+(?:[eE][+\\-]?\\d*)?i?\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"keyword",b:"(?:tryCatch|library|setGeneric|setGroupGeneric)\\b",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\.\\.\\.",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\.\\.\\d+(?![\\w.])",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\b(?:function)",e:hljs.IMMEDIATE_RE,r:2},{cN:"keyword",b:"(?:if|in|break|next|repeat|else|for|return|switch|while|try|stop|warning|require|attach|detach|source|setMethod|setClass)\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"literal",b:"(?:NA|NA_integer_|NA_real_|NA_character_|NA_complex_)\\b",e:hljs.IMMEDIATE_RE,r:10},{cN:"literal",b:"(?:NULL|TRUE|FALSE|T|F|Inf|NaN)\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"identifier",b:"[a-zA-Z.][a-zA-Z0-9._]*\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"operator",b:"<\\-(?!\\s*\\d)",e:hljs.IMMEDIATE_RE,r:2},{cN:"operator",b:"\\->|<\\-",e:hljs.IMMEDIATE_RE,r:1},{cN:"operator",b:"%%|~",e:hljs.IMMEDIATE_RE},{cN:"operator",b:">=|<=|==|!=|\\|\\||&&|=|\\+|\\-|\\*|/|\\^|>|<|!|&|\\||\\$|:",e:hljs.IMMEDIATE_RE,r:0},{cN:"operator",b:"%",e:"%",i:"\\n",r:1},{cN:"identifier",b:"`",e:"`",r:0},{cN:"string",b:'"',e:'"',c:[hljs.BE],r:0},{cN:"string",b:"'",e:"'",c:[hljs.BE],r:0},{cN:"paren",b:"[[({\\])}]",e:hljs.IMMEDIATE_RE,r:0}]}};
+hljs.initHighlightingOnLoad();
+</script>
+
+
+
+<style type="text/css">
+body, td {
+   font-family: sans-serif;
+   background-color: white;
+   font-size: 13px;
+}
+
+body {
+  max-width: 800px;
+  margin: auto;
+  padding: 1em;
+  line-height: 20px;
+}
+
+tt, code, pre {
+   font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
+}
+
+h1 {
+   font-size:2.2em;
+}
+
+h2 {
+   font-size:1.8em;
+}
+
+h3 {
+   font-size:1.4em;
+}
+
+h4 {
+   font-size:1.0em;
+}
+
+h5 {
+   font-size:0.9em;
+}
+
+h6 {
+   font-size:0.8em;
+}
+
+a:visited {
+   color: rgb(50%, 0%, 50%);
+}
+
+pre, img {
+  max-width: 100%;
+}
+pre {
+  overflow-x: auto;
+}
+pre code {
+   display: block; padding: 0.5em;
+}
+
+code {
+  font-size: 92%;
+  border: 1px solid #ccc;
+}
+
+code[class] {
+  background-color: #F8F8F8;
+}
+
+table, td, th {
+  border: none;
+}
+
+blockquote {
+   color:#666666;
+   margin:0;
+   padding-left: 1em;
+   border-left: 0.5em #EEE solid;
+}
+
+hr {
+   height: 0px;
+   border-bottom: none;
+   border-top-width: thin;
+   border-top-style: dotted;
+   border-top-color: #999999;
+}
+
+@media print {
+   * {
+      background: transparent !important;
+      color: black !important;
+      filter:none !important;
+      -ms-filter: none !important;
+   }
+
+   body {
+      font-size:12pt;
+      max-width:100%;
+   }
+
+   a, a:visited {
+      text-decoration: underline;
+   }
+
+   hr {
+      visibility: hidden;
+      page-break-before: always;
+   }
+
+   pre, blockquote {
+      padding-right: 1em;
+      page-break-inside: avoid;
+   }
+
+   tr, img {
+      page-break-inside: avoid;
+   }
+
+   img {
+      max-width: 100% !important;
+   }
+
+   @page :left {
+      margin: 15mm 20mm 15mm 10mm;
+   }
+
+   @page :right {
+      margin: 15mm 10mm 15mm 20mm;
+   }
+
+   p, h2, h3 {
+      orphans: 3; widows: 3;
+   }
+
+   h2, h3 {
+      page-break-after: avoid;
+   }
+}
+</style>
+
+
+
+</head>
+
+<body>
+<h2>Previous actions</h2>
+
+<p>Exported all Table 1 for the articles with <a href="https://github.com/tabulapdf/tabula">Tabula Win 1.0.1</a>.<br/>
+Except for:</p>
+
+<ul>
+<li>Gold et al (only image based PDF)</li>
+<li>Jain et al (only image based PDF)</li>
+<li>Marcantonio et al (only text based baseline info)</li>
+<li>Sessler et al (no baseline description)</li>
+<li>Reich et al (no baseline description)<br/></li>
+</ul>
+
+<h2>Read baseline data file</h2>
+
+<pre><code class="r"># Get list of data extract files
+files_full &lt;- list.files(&quot;./Data extracts&quot;, full.names=T, pattern=&quot;*.csv&quot;)
+files_full
+</code></pre>
+
+<pre><code>##  [1] &quot;./Data extracts/tabula-2002 - Journal of intensive care medicine - Barone et al.csv&quot;                    
+##  [2] &quot;./Data extracts/tabula-2003 - Renal Failure - Lima et al.csv&quot;                                           
+##  [3] &quot;./Data extracts/tabula-2005 - Anesthesia and Analgesia - Monk et al.csv&quot;                                
+##  [4] &quot;./Data extracts/tabula-2006 - Sharma et al.csv&quot;                                                         
+##  [5] &quot;./Data extracts/tabula-2007 - Clinical Journal of the American Society of Nephrology - Thakar et al.csv&quot;
+##  [6] &quot;./Data extracts/tabula-2007 - Tallgren et al.csv&quot;                                                       
+##  [7] &quot;./Data extracts/tabula-2008 - Journal of Korean Neurosurgical Society - Chong et al.csv&quot;                
+##  [8] &quot;./Data extracts/tabula-2009 - Acta anaesthesiologica Scandinavica - Taffé et al.csv&quot;                    
+##  [9] &quot;./Data extracts/tabula-2009 - Scandinavian Cardiovascular Journal - Nakamura et al.csv&quot;                 
+## [10] &quot;./Data extracts/tabula-2009 Bijker et al.csv&quot;                                                           
+## [11] &quot;./Data extracts/tabula-2009 Kheterpal et al.csv&quot;                                                        
+## [12] &quot;./Data extracts/tabula-2011 - British Journal of Anaesthesia - Sabaté et al.csv&quot;                        
+## [13] &quot;./Data extracts/tabula-2011 - Journal of anesthesia - Tassoudis et al.csv&quot;                              
+## [14] &quot;./Data extracts/tabula-2011 - Journal of International Medical Research - Franck et al.csv&quot;             
+## [15] &quot;./Data extracts/tabula-2011 - Siepe et al.csv&quot;                                                          
+## [16] &quot;./Data extracts/tabula-2011 Patti et al.csv&quot;                                                            
+## [17] &quot;./Data extracts/tabula-2012 - Nephrology Dialysis Transplantation - Haase et al.csv&quot;                    
+## [18] &quot;./Data extracts/tabula-2012 Bijker et al.csv&quot;                                                           
+## [19] &quot;./Data extracts/tabula-2013 - Anesthesiology research and practice - Aronson et al.csv&quot;                 
+## [20] &quot;./Data extracts/tabula-2013 - Chinese medical journal - Yue et al.csv&quot;                                  
+## [21] &quot;./Data extracts/tabula-2013 Walsh et al.csv&quot;                                                            
+## [22] &quot;./Data extracts/tabula-2014 - Transplantation proceedings - Sirivatanauksorn et al.csv&quot;                 
+## [23] &quot;./Data extracts/tabula-2014 Pipanmekaporn et al.csv&quot;                                                    
+## [24] &quot;./Data extracts/tabula-2015 - Anesthesiology - Mascha et al.csv&quot;                                        
+## [25] &quot;./Data extracts/tabula-2015 - Anesthesiology - Monk et al.csv&quot;                                          
+## [26] &quot;./Data extracts/tabula-2015 - Anesthesiology - Sun et al.csv&quot;                                           
+## [27] &quot;./Data extracts/tabula-2015 - Anesthesiology Research and Practice - Petsiti et al.csv&quot;                 
+## [28] &quot;./Data extracts/tabula-2015 - British journal of anaesthesia - Hirsch et al.csv&quot;                        
+## [29] &quot;./Data extracts/tabula-2015 - British journal of anaesthesia - Wesselink et al.csv&quot;
+</code></pre>
+
+<p>Multiple tables should be read. However, due to different formatting
+this possibly requires different character encoding schemes, as well 
+as some information about the structure of the table.  </p>
+
+<p><a href="https://github.com/tkappen/recodePDFtable/blob/master/readFunctions/Encoding_functions.R">Encoding Functions</a></p>
+
+<p>The next R code uses the function <code>read.multi</code> to read all the files.
+Within the R code, originally there was a first time that we called
+for <code>checkData=TRUE</code> to enter all table information. This information 
+was then stored in <code>./Data/tableStructures.R</code> to ensure that we did not
+have to repeat the process and would use the same information every time.</p>
+
+<pre><code class="r"># Read with prompts for database structure
+# myfiles &lt;- read.multi(files_full, 
+#   baseEncoding = &quot;UTF-8&quot;, baseFileEncoding = &quot;windows-1252&quot;,
+#   altEncoding = &quot;windows-1252&quot;, altFileEncoding = &quot;437&quot;,
+### settoEncode =6, settoFileEncode =6, ### Don&#39;t need it, changed dataset
+#   checkData = TRUE, startCol = TRUE, subThousands = TRUE)
+# dput(myfiles2[2,], &quot;./Data/tableStructures.R&quot;)
+
+# Create more simple names from filenames
+m1 &lt;- regexpr(&quot;[[:upper:]][[:alnum:][:space:]]+[.]&quot;,files_full)
+m2 &lt;- regexpr(&quot;[[:digit:]]+&quot;,files_full)
+mynames &lt;- paste(regmatches(files_full,m1), regmatches(files_full,m2))
+
+# Re-read existing table structure and load tables
+listStruct &lt;- dget(&quot;./Data/tableStructures.R&quot;)
+myfiles &lt;- read.multi(files_full, 
+    baseEncoding = &quot;UTF-8&quot;, baseFileEncoding = &quot;windows-1252&quot;,
+    altEncoding = &quot;windows-1252&quot;, altFileEncoding = &quot;437&quot;,
+    listStruct= listStruct, row.names = mynames)
+
+# Read only the tables into separte variable
+myfiles[1,2:3]
+</code></pre>
+
+<pre><code>## $`Lima et al. 2003`
+##       V1                    V2           V3         
+##  [1,] &quot;N &quot;                  &quot;56 (61%) &quot;  &quot;36 (39%)&quot; 
+##  [2,] &quot;Sex (M/F) &quot;          &quot;29/27 &quot;     &quot;19/17&quot;    
+##  [3,] &quot;Age (years) &quot;        &quot;46±13 &quot;     &quot;41±16&quot;    
+##  [4,] &quot;Urea (mg/dL) &quot;       &quot;39±28 &quot;     &quot;27±11&quot;    
+##  [5,] &quot;Creatinine (mg/dL) &quot; &quot;1.16±0.54 &quot; &quot;0.87±0.27&quot;
+##  [6,] &quot;Potassium (mEq/L) &quot;  &quot;4.3±0.6 &quot;   &quot;3.9±0.3&quot;  
+##  [7,] &quot;Sodium (mEq/L) &quot;     &quot;136±7 &quot;     &quot;137±5&quot;    
+##  [8,] &quot;Albumin (g/dL) &quot;     &quot;3.3±0.1 &quot;   &quot;3.3±0.1&quot;  
+##  [9,] &quot;Bilirubin (mg/dL) &quot;  &quot;5.8±1.1 &quot;   &quot;2.7±0.9&quot;  
+## [10,] &quot;Ascites &quot;            &quot;41 (73%) &quot;  &quot;22 (61%)&quot; 
+## [11,] &quot;Encephalopathy &quot;     &quot;21 (38%) &quot;  &quot;11 (31%)&quot; 
+## [12,] &quot;Variceal bleeding &quot;  &quot;21 (38%) &quot;  &quot;14 (39%)&quot; 
+## 
+## $`Monk et al. 2005`
+##       V1                                                                                             
+##  [1,] &quot;&quot;                                                                                             
+##  [2,] &quot;Age (yr) &quot;                                                                                    
+##  [3,] &quot;Weight (kg) &quot;                                                                                 
+##  [4,] &quot;Body mass index (kg/m2) &quot;                                                                     
+##  [5,] &quot;Gender (female:male) &quot;                                                                        
+##  [6,] &quot;Preoperative Mini-Mental State examination score &quot;                                            
+##  [7,] &quot;Preoperative Beck Depression Inventory &quot;                                                      
+##  [8,] &quot;Preoperative State Trait Anxiety Inventory &quot;                                                  
+##  [9,] &quot;Educational level (yr) &quot;                                                                      
+## [10,] &quot;Race&quot;                                                                                         
+## [11,] &quot;White &quot;                                                                                       
+## [12,] &quot;Black &quot;                                                                                       
+## [13,] &quot;Other &quot;                                                                                       
+## [14,] &quot;Marital status&quot;                                                                               
+## [15,] &quot;Widowed or single &quot;                                                                           
+## [16,] &quot;Married or living as married &quot;                                                                
+## [17,] &quot;Medical history&quot;                                                                              
+## [18,] &quot;Heart disease &quot;                                                                               
+## [19,] &quot;Angina pectoris &quot;                                                                             
+## [20,] &quot;Myocardial infarction &quot;                                                                       
+## [21,] &quot;Hypertension &quot;                                                                                
+## [22,] &quot;Stroke &quot;                                                                                      
+## [23,] &quot;Hepatic disease &quot;                                                                             
+## [24,] &quot;Diabetes (insulin-dependent) &quot;                                                                
+## [25,] &quot;Peripheral ischemia &quot;                                                                         
+## [26,] &quot;Depression &quot;                                                                                  
+## [27,] &quot;Previous anesthetic &quot;                                                                         
+## [28,] &quot;Alcohol consumption (units/wk)&quot;                                                               
+## [29,] &quot;None &quot;                                                                                        
+## [30,] &quot;1&lt;U+0096&gt;7 &quot;                                                                                         
+## [31,] &quot;8&lt;U+0096&gt;14 &quot;                                                                                        
+## [32,] &quot;15 &quot;                                                                                          
+## [33,] &quot;Tobacco use (pack-years)&quot;                                                                     
+## [34,] &quot;0 &quot;                                                                                           
+## [35,] &quot;1&lt;U+0096&gt;10 &quot;                                                                                        
+## [36,] &quot;11&lt;U+0096&gt;20 &quot;                                                                                       
+## [37,] &quot;21 &quot;                                                                                          
+## [38,] &quot;New York Heart Association functional class&quot;                                                  
+## [39,] &quot;Class 1 &quot;                                                                                     
+## [40,] &quot;Class 2 &quot;                                                                                     
+## [41,] &quot;Class 3 or 4 &quot;                                                                                
+## [42,] &quot;Charlson Comorbidity Score&quot;                                                                   
+## [43,] &quot;0&lt;U+0096&gt;2 &quot;                                                                                         
+## [44,] &quot;3 &quot;                                                                                           
+## [45,] &quot;ASA physical status&quot;                                                                          
+## [46,] &quot;I &quot;                                                                                           
+## [47,] &quot;II &quot;                                                                                          
+## [48,] &quot;III or IV &quot;                                                                                   
+## [49,] &quot;Preoperative systolic blood pressure (mm Hg) &quot;                                                
+## [50,] &quot;Preoperative diastolic blood pressure (mm Hg) &quot;                                               
+## [51,] &quot;Preoperative hematocrit &quot;                                                                     
+## [52,] &quot;Preoperative hemoglobin &quot;                                                                     
+## [53,] &quot;Surgery type&quot;                                                                                 
+## [54,] &quot;Intracavitary &quot;                                                                               
+## [55,] &quot;Minimally invasive or superficial &quot;                                                           
+## [56,] &quot;Orthopedic &quot;                                                                                  
+## [57,] &quot;Surgical duration (h) &quot;                                                                       
+## [58,] &quot;Maintenance anesthetic&quot;                                                                       
+## [59,] &quot;Volatile &quot;                                                                                    
+## [60,] &quot;IV only &quot;                                                                                     
+## [61,] &quot;Unknown &quot;                                                                                     
+## [62,] &quot;Intraoperative opioid administration &quot;                                                        
+## [63,] &quot;Neuromuscular blockade &quot;                                                                      
+## [64,] &quot;Duration of systolic blood pressure 80 mm Hg (min), patients with non-zero duration (n 203) &quot; 
+## [65,] &quot;Duration of systolic blood pressure 160 mm Hg (min), patients with non-zero duration (n 331) &quot;
+## [66,] &quot;Duration of mean arterial blood pressure 55 mm Hg (min), patients with non-zero duration (n &quot; 
+## [67,] &quot;Duration of mean arterial blood pressure 100 mm Hg (min), patients with non-zero duration (n &quot;
+## [68,] &quot;Duration of heart rate 45 bpm (min), patients with non-zero duration (n 45) &quot;                 
+## [69,] &quot;Duration of heart rate 110 bpm (min), patients with non-zero duration (n 205) &quot;               
+## [70,] &quot;Cumulative deep hypnotic time (h) &quot;                                                           
+##       V4                
+##  [1,] &quot;(n = 0)&quot;         
+##  [2,] &quot;51 (37&lt;U+0096&gt;65)&quot;      
+##  [3,] &quot;82 (67&lt;U+0096&gt;100)&quot;     
+##  [4,] &quot;27.9 (24.1&lt;U+0096&gt;34.2)&quot;
+##  [5,] &quot;63.5%:36.5%&quot;     
+##  [6,] &quot;30 (29&lt;U+0096&gt;30)&quot;      
+##  [7,] &quot;5 (2&lt;U+0096&gt;10)&quot;        
+##  [8,] &quot;65 (54&lt;U+0096&gt;81)&quot;      
+##  [9,] &quot;13 (12&lt;U+0096&gt;15)&quot;      
+## [10,] &quot;&quot;                
+## [11,] &quot;89.4%&quot;           
+## [12,] &quot;9.4%&quot;            
+## [13,] &quot;1.2%&quot;            
+## [14,] &quot;&quot;                
+## [15,] &quot;33.3%&quot;           
+## [16,] &quot;66.7%&quot;           
+## [17,] &quot;&quot;                
+## [18,] &quot;10.2%&quot;           
+## [19,] &quot;5.7%&quot;            
+## [20,] &quot;5.5%&quot;            
+## [21,] &quot;33.1%&quot;           
+## [22,] &quot;3.6%&quot;            
+## [23,] &quot;5.2%&quot;            
+## [24,] &quot;3.9%&quot;            
+## [25,] &quot;8.1%&quot;            
+## [26,] &quot;16.2%&quot;           
+## [27,] &quot;91.0%&quot;           
+## [28,] &quot;&quot;                
+## [29,] &quot;75.8%&quot;           
+## [30,] &quot;19.5%&quot;           
+## [31,] &quot;3.3%&quot;            
+## [32,] &quot;1.4%&quot;            
+## [33,] &quot;&quot;                
+## [34,] &quot;50.8%&quot;           
+## [35,] &quot;14.8%&quot;           
+## [36,] &quot;10.2%&quot;           
+## [37,] &quot;24.2%&quot;           
+## [38,] &quot;&quot;                
+## [39,] &quot;67.5%&quot;           
+## [40,] &quot;23.8%&quot;           
+## [41,] &quot;8.7%&quot;            
+## [42,] &quot;&quot;                
+## [43,] &quot;81.4%&quot;           
+## [44,] &quot;18.6%&quot;           
+## [45,] &quot;&quot;                
+## [46,] &quot;13.1%&quot;           
+## [47,] &quot;51.9%&quot;           
+## [48,] &quot;35.0%&quot;           
+## [49,] &quot;131 (118&lt;U+0096&gt;145)&quot;   
+## [50,] &quot;78 (70&lt;U+0096&gt;84)&quot;      
+## [51,] &quot;37.6 (34.3&lt;U+0096&gt;40.4)&quot;
+## [52,] &quot;12.8 (11.6&lt;U+0096&gt;13.9)&quot;
+## [53,] &quot;&quot;                
+## [54,] &quot;55.8%&quot;           
+## [55,] &quot;18.3%&quot;           
+## [56,] &quot;25.9%&quot;           
+## [57,] &quot;3.1 (2.3&lt;U+0096&gt;4.3)&quot;   
+## [58,] &quot;&quot;                
+## [59,] &quot;90.9%&quot;           
+## [60,] &quot;8.3%&quot;            
+## [61,] &quot;0.8%&quot;            
+## [62,] &quot;96.0%&quot;           
+## [63,] &quot;88.3%&quot;           
+## [64,] &quot;5.0 (5.0&lt;U+0096&gt;10.0)&quot;  
+## [65,] &quot;10.0 (5.0&lt;U+0096&gt;20.0)&quot; 
+## [66,] &quot;10.0 (5.0&lt;U+0096&gt;15.0)&quot; 
+## [67,] &quot;20.0 (10.0&lt;U+0096&gt;40.0)&quot;
+## [68,] &quot;10.0 (5.0&lt;U+0096&gt;22.5)&quot; 
+## [69,] &quot;10.0 (5.0&lt;U+0096&gt;20.0)&quot; 
+## [70,] &quot;1.1 (0.3&lt;U+0096&gt;2.1)&quot;
+</code></pre>
+
+<pre><code class="r">myfiles[2,2:3]
+</code></pre>
+
+<pre><code>## $`Lima et al. 2003`
+## $file
+## [1] &quot;./Data extracts/tabula-2003 - Renal Failure - Lima et al.csv&quot;
+## 
+## $cols
+## [1] 2 3
+## 
+## $cellN
+## [1] 2
+## 
+## $firstVar
+## [1] 3
+## 
+## $startCol
+## [1] 2
+## 
+## $subThousands
+## [1] 1
+## 
+## attr(,&quot;class&quot;)
+## [1] &quot;tableStructure&quot;
+## 
+## $`Monk et al. 2005`
+## $file
+## [1] &quot;./Data extracts/tabula-2005 - Anesthesia and Analgesia - Monk et al.csv&quot;
+## 
+## $cols
+## [1] 4
+## 
+## $cellN
+## [1] 0
+## 
+## $firstVar
+## [1] 1
+## 
+## $startCol
+## [1] 2
+## 
+## $subThousands
+## [1] 1
+## 
+## attr(,&quot;class&quot;)
+## [1] &quot;tableStructure&quot;
+</code></pre>
+
+<h2>Explore data patterns</h2>
+
+<p>After the tables have been read they should be reencoded from string
+to numerical values. So called regular expressions using <code>UNIX Grep</code> 
+were used to match string patterns to different types. For our purpose, 
+each cell should have only one matching expression to avoid wrong coding.  </p>
+
+<p>Several functions were written to match regular expressions to the string data 
+for each cell, and check whether a single expression was found for all table cells.</p>
+
+<p><a href="https://github.com/tkappen/recodePDFtable/blob/master/grepFunctions/Baseline_grep_calls.R">Pattern match functions</a></p>
+
+<p><a href="https://github.com/tkappen/recodePDFtable/blob/master/grepFunctions/Baseline_grep_expressions.R">Grep expressions</a></p>
+
+<p>This what that looks like:</p>
+
+<pre><code class="r">grepTableSet(myfiles)[[15]]
+</code></pre>
+
+<pre><code>## $V2
+## $V2$y.matrix
+##        x[%] (SD_x)  (x%) x_(x[%]) x_(x)_abc   x±x  x__x x_(x-x) x_x-x
+##  [1,] FALSE  FALSE FALSE    FALSE     FALSE FALSE FALSE   FALSE FALSE
+##  [2,] FALSE  FALSE FALSE    FALSE     FALSE FALSE  TRUE   FALSE FALSE
+##  [3,] FALSE  FALSE FALSE     TRUE     FALSE FALSE FALSE   FALSE FALSE
+##  [4,] FALSE  FALSE FALSE    FALSE     FALSE FALSE  TRUE   FALSE FALSE
+##  [5,] FALSE  FALSE FALSE     TRUE     FALSE FALSE FALSE   FALSE FALSE
+##  [6,] FALSE  FALSE FALSE     TRUE     FALSE FALSE FALSE   FALSE FALSE
+##  [7,] FALSE  FALSE FALSE     TRUE     FALSE FALSE FALSE   FALSE FALSE
+##  [8,] FALSE  FALSE FALSE     TRUE     FALSE FALSE FALSE   FALSE FALSE
+##  [9,] FALSE  FALSE FALSE     TRUE     FALSE FALSE FALSE   FALSE FALSE
+## [10,] FALSE  FALSE FALSE     TRUE     FALSE FALSE FALSE   FALSE FALSE
+## [11,] FALSE  FALSE FALSE     TRUE     FALSE FALSE FALSE   FALSE FALSE
+## [12,] FALSE  FALSE FALSE     TRUE     FALSE FALSE FALSE   FALSE FALSE
+## [13,] FALSE  FALSE FALSE    FALSE     FALSE FALSE  TRUE   FALSE FALSE
+## [14,] FALSE  FALSE FALSE    FALSE     FALSE FALSE  TRUE   FALSE FALSE
+## [15,] FALSE  FALSE FALSE    FALSE     FALSE FALSE  TRUE   FALSE FALSE
+## [16,] FALSE  FALSE FALSE    FALSE     FALSE FALSE  TRUE   FALSE FALSE
+## [17,] FALSE  FALSE FALSE    FALSE     FALSE FALSE  TRUE   FALSE FALSE
+##       x_(xtox) x_[x-x] x_[x,x] x_(x,x)   x/x   x:x x/x_(x/x) x:x_(x:x)
+##  [1,]    FALSE   FALSE   FALSE   FALSE FALSE FALSE     FALSE     FALSE
+##  [2,]    FALSE   FALSE   FALSE   FALSE FALSE FALSE     FALSE     FALSE
+##  [3,]    FALSE   FALSE   FALSE   FALSE FALSE FALSE     FALSE     FALSE
+##  [4,]    FALSE   FALSE   FALSE   FALSE FALSE FALSE     FALSE     FALSE
+##  [5,]    FALSE   FALSE   FALSE   FALSE FALSE FALSE     FALSE     FALSE
+##  [6,]    FALSE   FALSE   FALSE   FALSE FALSE FALSE     FALSE     FALSE
+##  [7,]    FALSE   FALSE   FALSE   FALSE FALSE FALSE     FALSE     FALSE
+##  [8,]    FALSE   FALSE   FALSE   FALSE FALSE FALSE     FALSE     FALSE
+##  [9,]    FALSE   FALSE   FALSE   FALSE FALSE FALSE     FALSE     FALSE
+## [10,]    FALSE   FALSE   FALSE   FALSE FALSE FALSE     FALSE     FALSE
+## [11,]    FALSE   FALSE   FALSE   FALSE FALSE FALSE     FALSE     FALSE
+## [12,]    FALSE   FALSE   FALSE   FALSE FALSE FALSE     FALSE     FALSE
+## [13,]    FALSE   FALSE   FALSE   FALSE FALSE FALSE     FALSE     FALSE
+## [14,]    FALSE   FALSE   FALSE   FALSE FALSE FALSE     FALSE     FALSE
+## [15,]    FALSE   FALSE   FALSE   FALSE FALSE FALSE     FALSE     FALSE
+## [16,]    FALSE   FALSE   FALSE   FALSE FALSE FALSE     FALSE     FALSE
+## [17,]    FALSE   FALSE   FALSE   FALSE FALSE FALSE     FALSE     FALSE
+##       x__x_(x__x)    __   abc   n=x  n__x n_pats
+##  [1,]       FALSE FALSE FALSE FALSE FALSE   TRUE
+##  [2,]       FALSE FALSE FALSE FALSE FALSE  FALSE
+##  [3,]       FALSE FALSE FALSE FALSE FALSE  FALSE
+##  [4,]       FALSE FALSE FALSE FALSE FALSE  FALSE
+##  [5,]       FALSE FALSE FALSE FALSE FALSE  FALSE
+##  [6,]       FALSE FALSE FALSE FALSE FALSE  FALSE
+##  [7,]       FALSE FALSE FALSE FALSE FALSE  FALSE
+##  [8,]       FALSE FALSE FALSE FALSE FALSE  FALSE
+##  [9,]       FALSE FALSE FALSE FALSE FALSE  FALSE
+## [10,]       FALSE FALSE FALSE FALSE FALSE  FALSE
+## [11,]       FALSE FALSE FALSE FALSE FALSE  FALSE
+## [12,]       FALSE FALSE FALSE FALSE FALSE  FALSE
+## [13,]       FALSE FALSE FALSE FALSE FALSE  FALSE
+## [14,]       FALSE FALSE FALSE FALSE FALSE  FALSE
+## [15,]       FALSE FALSE FALSE FALSE FALSE  FALSE
+## [16,]       FALSE FALSE FALSE FALSE FALSE  FALSE
+## [17,]       FALSE FALSE FALSE FALSE FALSE  FALSE
+## 
+## $V2$rowsum
+##  [1] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+## 
+## $V2$uniqueGrep
+## [1] TRUE
+## 
+## $V2$rowType
+##  [1] &quot;n_pats&quot;   &quot;x__x&quot;     &quot;x_(x[%])&quot; &quot;x__x&quot;     &quot;x_(x[%])&quot; &quot;x_(x[%])&quot;
+##  [7] &quot;x_(x[%])&quot; &quot;x_(x[%])&quot; &quot;x_(x[%])&quot; &quot;x_(x[%])&quot; &quot;x_(x[%])&quot; &quot;x_(x[%])&quot;
+## [13] &quot;x__x&quot;     &quot;x__x&quot;     &quot;x__x&quot;     &quot;x__x&quot;     &quot;x__x&quot;    
+## 
+## 
+## $V3
+## $V3$y.matrix
+##        x[%] (SD_x)  (x%) x_(x[%]) x_(x)_abc   x±x  x__x x_(x-x) x_x-x
+##  [1,] FALSE  FALSE FALSE    FALSE     FALSE FALSE FALSE   FALSE FALSE
+##  [2,] FALSE  FALSE FALSE    FALSE     FALSE FALSE  TRUE   FALSE FALSE
+##  [3,] FALSE  FALSE FALSE     TRUE     FALSE FALSE FALSE   FALSE FALSE
+##  [4,] FALSE  FALSE FALSE    FALSE     FALSE FALSE  TRUE   FALSE FALSE
+##  [5,] FALSE  FALSE FALSE     TRUE     FALSE FALSE FALSE   FALSE FALSE
+##  [6,] FALSE  FALSE FALSE     TRUE     FALSE FALSE FALSE   FALSE FALSE
+##  [7,] FALSE  FALSE FALSE     TRUE     FALSE FALSE FALSE   FALSE FALSE
+##  [8,] FALSE  FALSE FALSE     TRUE     FALSE FALSE FALSE   FALSE FALSE
+##  [9,] FALSE  FALSE FALSE     TRUE     FALSE FALSE FALSE   FALSE FALSE
+## [10,] FALSE  FALSE FALSE     TRUE     FALSE FALSE FALSE   FALSE FALSE
+## [11,] FALSE  FALSE FALSE     TRUE     FALSE FALSE FALSE   FALSE FALSE
+## [12,] FALSE  FALSE FALSE     TRUE     FALSE FALSE FALSE   FALSE FALSE
+## [13,] FALSE  FALSE FALSE    FALSE     FALSE FALSE  TRUE   FALSE FALSE
+## [14,] FALSE  FALSE FALSE    FALSE     FALSE FALSE  TRUE   FALSE FALSE
+## [15,] FALSE  FALSE FALSE    FALSE     FALSE FALSE  TRUE   FALSE FALSE
+## [16,] FALSE  FALSE FALSE    FALSE     FALSE FALSE  TRUE   FALSE FALSE
+## [17,] FALSE  FALSE FALSE    FALSE     FALSE FALSE  TRUE   FALSE FALSE
+##       x_(xtox) x_[x-x] x_[x,x] x_(x,x)   x/x   x:x x/x_(x/x) x:x_(x:x)
+##  [1,]    FALSE   FALSE   FALSE   FALSE FALSE FALSE     FALSE     FALSE
+##  [2,]    FALSE   FALSE   FALSE   FALSE FALSE FALSE     FALSE     FALSE
+##  [3,]    FALSE   FALSE   FALSE   FALSE FALSE FALSE     FALSE     FALSE
+##  [4,]    FALSE   FALSE   FALSE   FALSE FALSE FALSE     FALSE     FALSE
+##  [5,]    FALSE   FALSE   FALSE   FALSE FALSE FALSE     FALSE     FALSE
+##  [6,]    FALSE   FALSE   FALSE   FALSE FALSE FALSE     FALSE     FALSE
+##  [7,]    FALSE   FALSE   FALSE   FALSE FALSE FALSE     FALSE     FALSE
+##  [8,]    FALSE   FALSE   FALSE   FALSE FALSE FALSE     FALSE     FALSE
+##  [9,]    FALSE   FALSE   FALSE   FALSE FALSE FALSE     FALSE     FALSE
+## [10,]    FALSE   FALSE   FALSE   FALSE FALSE FALSE     FALSE     FALSE
+## [11,]    FALSE   FALSE   FALSE   FALSE FALSE FALSE     FALSE     FALSE
+## [12,]    FALSE   FALSE   FALSE   FALSE FALSE FALSE     FALSE     FALSE
+## [13,]    FALSE   FALSE   FALSE   FALSE FALSE FALSE     FALSE     FALSE
+## [14,]    FALSE   FALSE   FALSE   FALSE FALSE FALSE     FALSE     FALSE
+## [15,]    FALSE   FALSE   FALSE   FALSE FALSE FALSE     FALSE     FALSE
+## [16,]    FALSE   FALSE   FALSE   FALSE FALSE FALSE     FALSE     FALSE
+## [17,]    FALSE   FALSE   FALSE   FALSE FALSE FALSE     FALSE     FALSE
+##       x__x_(x__x)    __   abc   n=x  n__x n_pats
+##  [1,]       FALSE FALSE FALSE FALSE FALSE   TRUE
+##  [2,]       FALSE FALSE FALSE FALSE FALSE  FALSE
+##  [3,]       FALSE FALSE FALSE FALSE FALSE  FALSE
+##  [4,]       FALSE FALSE FALSE FALSE FALSE  FALSE
+##  [5,]       FALSE FALSE FALSE FALSE FALSE  FALSE
+##  [6,]       FALSE FALSE FALSE FALSE FALSE  FALSE
+##  [7,]       FALSE FALSE FALSE FALSE FALSE  FALSE
+##  [8,]       FALSE FALSE FALSE FALSE FALSE  FALSE
+##  [9,]       FALSE FALSE FALSE FALSE FALSE  FALSE
+## [10,]       FALSE FALSE FALSE FALSE FALSE  FALSE
+## [11,]       FALSE FALSE FALSE FALSE FALSE  FALSE
+## [12,]       FALSE FALSE FALSE FALSE FALSE  FALSE
+## [13,]       FALSE FALSE FALSE FALSE FALSE  FALSE
+## [14,]       FALSE FALSE FALSE FALSE FALSE  FALSE
+## [15,]       FALSE FALSE FALSE FALSE FALSE  FALSE
+## [16,]       FALSE FALSE FALSE FALSE FALSE  FALSE
+## [17,]       FALSE FALSE FALSE FALSE FALSE  FALSE
+## 
+## $V3$rowsum
+##  [1] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+## 
+## $V3$uniqueGrep
+## [1] TRUE
+## 
+## $V3$rowType
+##  [1] &quot;n_pats&quot;   &quot;x__x&quot;     &quot;x_(x[%])&quot; &quot;x__x&quot;     &quot;x_(x[%])&quot; &quot;x_(x[%])&quot;
+##  [7] &quot;x_(x[%])&quot; &quot;x_(x[%])&quot; &quot;x_(x[%])&quot; &quot;x_(x[%])&quot; &quot;x_(x[%])&quot; &quot;x_(x[%])&quot;
+## [13] &quot;x__x&quot;     &quot;x__x&quot;     &quot;x__x&quot;     &quot;x__x&quot;     &quot;x__x&quot;
+</code></pre>
+
+<pre><code class="r"># Check which tables are matched to a single grep expression
+matchedTable(myfiles)
+</code></pre>
+
+<pre><code>## All cells of all tables are matched to a single grep expression
+</code></pre>
+
+<pre><code class="r"># Adjustments have been made to baseExpr() as well to a smaller 
+# part to the data (history on Git) to ensure that all row of each 
+# table have a single grep function associated
+</code></pre>
+
+<h2>Extract the data</h2>
+
+<p>Then the data had to be extracted for all numerical variables. However, each cell can contain 
+multiple numbers. For these tables we assumed that there would be a maximum of four numbers:
+1. the main number: <code>x</code>
+2. a second number, separated by spaces, slashes or colons: <code>x y</code>
+3. a first number within parentheses or brackets: (x)
+4. a second number within parentheses or brackets, separated by different punctuation: (x-y)</p>
+
+<p>Again, these expressions were written within a function that related to the the matched patterns
+that were found using the previous matching functions. Other functions were written to match 
+and extract different numbers.</p>
+
+<p><a href="https://github.com/tkappen/recodePDFtable/blob/master/grepFunctions/Baseline_grep_substring_expressions.R">Grep extraction expressions</a></p>
+
+<p><a href="https://github.com/tkappen/recodePDFtable/blob/master/grepFunctions/Baseline_grep_calls_split.R">Number extraction functions</a></p>
+
+<p>An example:</p>
+
+<pre><code class="r">tableGrepNum(myfiles)[[1]]
+</code></pre>
+
+<pre><code>## Warning in data.row.names(row.names, rowsi, i): some row.names duplicated:
+## 34 --&gt; row.names NOT used
+</code></pre>
+
+<pre><code>## Warning in data.row.names(row.names, rowsi, i): some row.names duplicated:
+## 34 --&gt; row.names NOT used
+</code></pre>
+
+<pre><code>## Warning in data.row.names(row.names, rowsi, i): some row.names duplicated:
+## 24,36,37,38,39 --&gt; row.names NOT used
+</code></pre>
+
+<pre><code>## Warning in data.row.names(row.names, rowsi, i): some row.names duplicated:
+## 16,20,26,28,30 --&gt; row.names NOT used
+</code></pre>
+
+<pre><code>## Warning in data.row.names(row.names, rowsi, i): some row.names duplicated:
+## 16,20,26,28,30 --&gt; row.names NOT used
+</code></pre>
+
+<pre><code>## Warning in data.row.names(row.names, rowsi, i): some row.names duplicated:
+## 49,50 --&gt; row.names NOT used
+</code></pre>
+
+<pre><code>## Warning in data.row.names(row.names, rowsi, i): some row.names duplicated:
+## 49,50 --&gt; row.names NOT used
+</code></pre>
+
+<pre><code>## $V2
+##                                                                     x
+##                                                               (n = 0)
+## Mean age/range                                       75 ± 10 (59-96) 
+## Gender (male/female)                                            11/9 
+## Diabetes mellitus                                             6 (30) 
+## Hypertension                                                 11 (55) 
+## Heart disease                                                 7 (35) 
+## Variable (unmatched)                                                 
+## Medical clearance                                            15 (75) 
+## Emergency surgery                                             3 (15) 
+## ASA classification                                               3.0 
+## Operative duration (minutes)                                124 ± 74 
+## Estimated blood loss (mL)                                  292 ± 714 
+## Intravenous fluids given in the operating room (mL)      1338 ± 1352 
+##                                                      pattern1 pattern2
+##                                                             0       NA
+## Mean age/range                                             75       NA
+## Gender (male/female)                                       11        9
+## Diabetes mellitus                                           6       NA
+## Hypertension                                               11       NA
+## Heart disease                                               7       NA
+## Variable (unmatched)                                       NA       NA
+## Medical clearance                                          15       NA
+## Emergency surgery                                           3       NA
+## ASA classification                                          3       NA
+## Operative duration (minutes)                              124       NA
+## Estimated blood loss (mL)                                 292       NA
+## Intravenous fluids given in the operating room (mL)      1338       NA
+##                                                      pattern3 pattern4
+##                                                            NA       NA
+## Mean age/range                                             10       NA
+## Gender (male/female)                                       NA       NA
+## Diabetes mellitus                                          30       NA
+## Hypertension                                               55       NA
+## Heart disease                                              35       NA
+## Variable (unmatched)                                       NA       NA
+## Medical clearance                                          75       NA
+## Emergency surgery                                          15       NA
+## ASA classification                                         NA       NA
+## Operative duration (minutes)                               74       NA
+## Estimated blood loss (mL)                                 714       NA
+## Intravenous fluids given in the operating room (mL)      1352       NA
+## 
+## $V3
+##                                                                    x
+##                                                              (n = 0)
+## Mean age/range                                       74 ± 11 (56-91)
+## Gender (male/female)                                           22/18
+## Diabetes mellitus                                             5 (13)
+## Hypertension                                                 13 (33)
+## Heart disease                                                11 (28)
+## Variable (unmatched)                                                
+## Medical clearance                                            27 (68)
+## Emergency surgery                                            13 (33)
+## ASA classification                                               2.8
+## Operative duration (minutes)                                124 ± 46
+## Estimated blood loss (mL)                                  241 ± 289
+## Intravenous fluids given in the operating room (mL)      1447 ± 1221
+##                                                      pattern1 pattern2
+##                                                           0.0       NA
+## Mean age/range                                           74.0       NA
+## Gender (male/female)                                     22.0       18
+## Diabetes mellitus                                         5.0       NA
+## Hypertension                                             13.0       NA
+## Heart disease                                            11.0       NA
+## Variable (unmatched)                                       NA       NA
+## Medical clearance                                        27.0       NA
+## Emergency surgery                                        13.0       NA
+## ASA classification                                        2.8       NA
+## Operative duration (minutes)                            124.0       NA
+## Estimated blood loss (mL)                               241.0       NA
+## Intravenous fluids given in the operating room (mL)    1447.0       NA
+##                                                      pattern3 pattern4
+##                                                            NA       NA
+## Mean age/range                                             11       NA
+## Gender (male/female)                                       NA       NA
+## Diabetes mellitus                                          13       NA
+## Hypertension                                               33       NA
+## Heart disease                                              28       NA
+## Variable (unmatched)                                       NA       NA
+## Medical clearance                                          68       NA
+## Emergency surgery                                          33       NA
+## ASA classification                                         NA       NA
+## Operative duration (minutes)                               46       NA
+## Estimated blood loss (mL)                                 289       NA
+## Intravenous fluids given in the operating room (mL)      1221       NA
+</code></pre>
+
+<h2>Weighted averages</h2>
+
+<p>Up till now we assumed that tables with multiples columns should have a weighted average for each variable.
+However, when frequencies are reported, it should not report the weighted average, 
+but simply the sum across columns. Additionally, different types of variables require different
+formatting in the final table. Thus we have to recognize which patterns are likely to belong to 
+a particular type of variable. For example, <code>x (x-x)</code> is likely to belong to a median 
+with interquartile range, but could also incidentally represent a mean with the full range.</p>
+
+<h3>Get default cell types</h3>
+
+<p>Pattern groups were matched to particular types of variables in a function.
+And then functions were used to create a default set of cell/variable types.</p>
+
+<p><a href="https://github.com/tkappen/recodePDFtable/blob/master/meanFunctions/Value_expressions.R">Cell types</a></p>
+
+<p><a href="https://github.com/tkappen/recodePDFtable/blob/master/meanFunctions/value_to_format.R">Get default types</a></p>
+
+<p>For some tables the function will ask for input on the type for <code>x</code> (one value only):</p>
+
+<pre><code class="r"># get the default format type for all files
+# dFormat &lt;- getDefaultTypes(myfiles, checkFormats = TRUE)
+# At the moment no function is available to check 
+# dput(dFormat, &quot;./Data/default_formats_.R&quot;)
+dFormat &lt;- dget(&quot;./Data/default_formats_.R&quot;)
+</code></pre>
+
+<pre><code>Barone et al. 2002
+      V1                                                   V2               V3             
+ [1,]                                                      (n = 0)          (n = 0)        
+ [2,] Mean age/range                                       75 ± 10 (59-96)  74 ± 11 (56-91)
+ [3,] Gender (male/female)                                 11/9             22/18          
+ [4,] Diabetes mellitus                                    6 (30)           5 (13)         
+ [5,] Hypertension                                         11 (55)          13 (33)        
+ [6,] Heart disease                                        7 (35)           11 (28)        
+ [7,] Variable (unmatched)                                                                 
+ [8,] Medical clearance                                    15 (75)          27 (68)        
+ [9,] Emergency surgery                                    3 (15)           13 (33)        
+[10,] ASA classification                                   3.0              2.8            
+[11,] Operative duration (minutes)                         124 ± 74         124 ± 46       
+[12,] Estimated blood loss (mL)                            292 ± 714        241 ± 289      
+[13,] Intravenous fluids given in the operating room (mL)  1338 ± 1352      1447 ± 1221    
+
+Is this a frequency (press 1), mean (2) or a percentage (3)?
+</code></pre>
+
+<h3>Tables without appropriate subject numbers</h3>
+
+<p>At the top of a column there is usually an indicator of the number of subjects within a group
+ (mostly expressed like <code>(N = 459)</code>).
+However, sometimes this <code>N</code> is missing. We used a <a href="https://github.com/tkappen/recodePDFtable/blob/master/meanFunctions/weightedMean_functions.R">function</a>
+ for that to prompt the user for missing <code>Ns</code>. The output is again written to a file for consistency.</p>
+
+<pre><code class="r"># Fill in the missing N = in tables
+#
+# missingN &lt;- fillNnull(myfiles)
+# dput(missingN, &quot;./Data/missing_Ns.R&quot;)
+missingN &lt;- dget(&quot;./Data/missing_Ns.R&quot;)
+</code></pre>
+
+<h3>Changing some default cell types</h3>
+
+<p>Some manual changes had to be made to the formatting of the data, because
+the default cell type was not appropriate, or some percentages are missing, because only 
+frequencies are reported.</p>
+
+<p><a href="https://github.com/tkappen/IOHReviewReadPDFs/blob/master/Data/changeFormat_tables.R">Change cell types for format</a></p>
+
+<p><a href="https://github.com/tkappen/IOHReviewReadPDFs/blob/master/Data/calculate_missing_Percentages.R">Calculate missing percentages</a></p>
+
+<h3>Calculate and format summary data</h3>
+
+<p>After all the formats have been adjusted, we now need to calculate weighted means and sums. 
+In addition, appropriate formatting is applied and converted back to a formatted table
+ (although it is possible to extract only the numerical values as well).</p>
+
+<p><a href="https://github.com/tkappen/recodePDFtable/blob/master/meanFunctions/weightedMean_functions.R">Weighing functions</a></p>
+
+<p>And the result:</p>
+
+<p><img src="https://github.com/tkappen/IOHReviewReadPDFs/blob/master/Images/Sun%20et%20al%20-%20Table%201.png" alt="Sun et al."/></p>
+
+<pre><code class="r">formatTables(mywtdtables, dFormat2, formatonly=TRUE)[[26]]
+</code></pre>
+
+<pre><code>##                                       y
+## 1                                  5127
+## Age (yr)                      61.3±14.2
+##  Female                             53%
+##  Hypertension                       48%
+## Coronary artery disease             11%
+##  Heart failure                       1%
+##  Peripheral vascular disease         8%
+##  Cerebrovascular disease             2%
+##  Chronic obstructive                 9%
+## pulmonary disease                      
+## Diabetes                            15%
+## Estimated glomerular                   
+## filtration rate (ml/min)               
+## &gt;60                                 83%
+## 30&lt;U+0096&gt;60                               15%
+## &lt;30                                  1%
+## Anemia                              16%
+## Malignancy                          53%
+## Preoperative medications               
+## ACE inhibitor                       16%
+##  Angiotensin receptor               11%
+## blocker                                
+##  ß Blocker                          16%
+##  Type of surgery                       
+##  General surgery                    26%
+## Vascular                            10%
+##  Thoracic                           26%
+## Gynecological                       17%
+## Ear, nose, and throat               16%
+##  Plastic                             4%
+## Intraoperative                         
+##  Blood Loss (ml)                       
+##  =100                                8%
+## 101&lt;U+0096&gt;600                              7%
+##  601&lt;U+0096&gt;1000                           31%
+##  &gt;1000                              54%
+##  Duration of surgery (h)               
+##  =2                                 21%
+##  2&lt;U+0096&gt;5                                49%
+##   =5                                30%
+</code></pre>
+
+<h3>Writing to datasets</h3>
+
+<p>I did not do the restructuring of all tables into a single table with code, because it would require
+all kinds of classifications of the variables (which variables across different tables are the same).
+So I simply exported the formatted tables and did the rest manually.</p>
+
+<pre><code>write.multi.csv(myresults, directory, FUN = write.csv2)
+
+
+# Write all files into separate named files
+write.multi.csv &lt;- function (x, directory, FUN = write.csv) {
+    FUN &lt;- match.fun(FUN)
+    f &lt;- function (x, d) paste(d, x,&quot;.csv&quot;, sep=&quot;&quot;)
+    namelist &lt;- sapply(names(x), f, d = directory)
+    mapply(FUN, x, namelist)
+}
+</code></pre>
+
+<h2>The final result</h2>
+
+<p><img src="https://github.com/tkappen/IOHReviewReadPDFs/blob/master/Images/Summary%20Baseline%20Data.png" alt="Results"/></p>
+
+</body>
+
+</html>

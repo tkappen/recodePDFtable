@@ -1,0 +1,283 @@
+---
+title: "Intraoperative Hypotension Review - Code for summarizing data from a PDF"
+author: "Teus Kappen"
+date: "January 10 2016"
+output: 
+  html_document: 
+    fig_caption: yes
+---
+
+```{r packages, results='hide', echo=FALSE}
+library(knitr)
+library(markdown)
+library(Hmisc)
+library(rms)
+```
+
+## Previous actions
+Exported all Table 1 for the articles with [Tabula Win 1.0.1](https://github.com/tabulapdf/tabula).  
+Except for:
+- Gold et al (only image based PDF)
+- Jain et al (only image based PDF)
+- Marcantonio et al (only text based baseline info)
+- Sessler et al (no baseline description)
+- Reich et al (no baseline description)  
+  
+## Read baseline data file
+
+```{r setdir, results='hide', echo=FALSE}
+wd <- "Z:/Drive/Medicine/Science/Projecten/Esther Wesselink/Manuscripts/2. IOH and Outcomes Review/IOHReviewReadPDFs"
+setwd(wd)
+getwd()
+```
+
+```{r readfilenames}
+# Get list of data extract files
+files_full <- list.files("./Data extracts", full.names=T, pattern="*.csv")
+files_full
+```
+
+Multiple tables should be read. However, due to different formatting
+this possibly requires different character encoding schemes, as well 
+as some information about the structure of the table.  
+
+[Encoding Functions](https://github.com/tkappen/recodePDFtable/blob/master/readFunctions/Encoding_functions.R)
+
+```{r sourcecode, results='hide', echo=FALSE}
+## Read functions to read multiple datasets with multiple encoding schemes
+source("Z:/Drive/Archive Settings/Git/recodePDFtable/readFunctions/Encoding_functions.R")
+## Call other functions for Grep analysis
+source("Z:/Drive/Archive Settings/Git/recodePDFtable/grepFunctions/Baseline_grep_expressions.R")
+source("Z:/Drive/Archive Settings/Git/recodePDFtable/grepFunctions/Baseline_grep_substring_expressions.R")
+source("Z:/Drive/Archive Settings/Git/recodePDFtable/grepFunctions/Baseline_grep_calls.R")
+source("Z:/Drive/Archive Settings/Git/recodePDFtable/grepFunctions/Baseline_grep_calls_split.R")
+source("Z:/Drive/Archive Settings/Git/recodePDFtable/meanFunctions/Value_expressions.R")
+source("Z:/Drive/Archive Settings/Git/recodePDFtable/meanFunctions/value_to_format.R")
+source("Z:/Drive/Archive Settings/Git/recodePDFtable/meanFunctions/weightedMean_functions.R")
+```
+
+The next R code uses the function `read.multi` to read all the files.
+Within the R code, originally there was a first time that we called
+for `checkData=TRUE` to enter all table information. This information 
+was then stored in `./Data/tableStructures.R` to ensure that we did not
+have to repeat the process and would use the same information every time.
+
+
+```{r readfiles}
+# Read with prompts for database structure
+# myfiles <- read.multi(files_full, 
+#	baseEncoding = "UTF-8", baseFileEncoding = "windows-1252",
+#	altEncoding = "windows-1252", altFileEncoding = "437",
+###	settoEncode =6, settoFileEncode =6, ### Don't need it, changed dataset
+#	checkData = TRUE, startCol = TRUE, subThousands = TRUE)
+# dput(myfiles2[2,], "./Data/tableStructures.R")
+
+# Create more simple names from filenames
+m1 <- regexpr("[[:upper:]][[:alnum:][:space:]]+[.]",files_full)
+m2 <- regexpr("[[:digit:]]+",files_full)
+mynames <- paste(regmatches(files_full,m1), regmatches(files_full,m2))
+
+# Re-read existing table structure and load tables
+listStruct <- dget("./Data/tableStructures.R")
+myfiles <- read.multi(files_full, 
+	baseEncoding = "UTF-8", baseFileEncoding = "windows-1252",
+	altEncoding = "windows-1252", altFileEncoding = "437",
+ 	listStruct= listStruct, row.names = mynames)
+
+# Read only the tables into separte variable
+myfiles[1,2:3]
+myfiles[2,2:3]
+```
+
+## Explore data patterns
+
+After the tables have been read they should be reencoded from string
+to numerical values. So called regular expressions using `UNIX Grep` 
+were used to match string patterns to different types. For our purpose, 
+each cell should have only one matching expression to avoid wrong coding.  
+
+Several functions were written to match regular expressions to the string data 
+for each cell, and check whether a single expression was found for all table cells.
+
+[Pattern match functions](https://github.com/tkappen/recodePDFtable/blob/master/grepFunctions/Baseline_grep_calls.R)
+
+[Grep expressions](https://github.com/tkappen/recodePDFtable/blob/master/grepFunctions/Baseline_grep_expressions.R)
+
+This what that looks like:
+
+
+```{r grepset}
+grepTableSet(myfiles)[[15]]
+```
+
+```{r matchset}
+# Check which tables are matched to a single grep expression
+matchedTable(myfiles)
+
+# Adjustments have been made to baseExpr() as well to a smaller 
+# part to the data (history on Git) to ensure that all row of each 
+# table have a single grep function associated
+```
+
+## Extract the data
+
+Then the data had to be extracted for all numerical variables. However, each cell can contain 
+multiple numbers. For these tables we assumed that there would be a maximum of four numbers:
+1. the main number: `x`
+2. a second number, separated by spaces, slashes or colons: `x y`
+3. a first number within parentheses or brackets: (x)
+4. a second number within parentheses or brackets, separated by different punctuation: (x-y)
+
+Again, these expressions were written within a function that related to the the matched patterns
+that were found using the previous matching functions. Other functions were written to match 
+and extract different numbers.
+
+[Grep extraction expressions](https://github.com/tkappen/recodePDFtable/blob/master/grepFunctions/Baseline_grep_substring_expressions.R)
+
+[Number extraction functions](https://github.com/tkappen/recodePDFtable/blob/master/grepFunctions/Baseline_grep_calls_split.R)
+
+An example:
+```{r numericalset}
+tableGrepNum(myfiles)[[1]]
+```
+
+
+## Weighted averages
+
+Up till now we assumed that tables with multiples columns should have a weighted average for each variable.
+However, when frequencies are reported, it should not report the weighted average, 
+but simply the sum across columns. Additionally, different types of variables require different
+formatting in the final table. Thus we have to recognize which patterns are likely to belong to 
+a particular type of variable. For example, `x (x-x)` is likely to belong to a median 
+with interquartile range, but could also incidentally represent a mean with the full range.
+
+### Get default cell types
+Pattern groups were matched to particular types of variables in a function.
+And then functions were used to create a default set of cell/variable types.
+
+[Cell types](https://github.com/tkappen/recodePDFtable/blob/master/meanFunctions/Value_expressions.R)
+
+[Get default types](https://github.com/tkappen/recodePDFtable/blob/master/meanFunctions/value_to_format.R)
+
+For some tables the function will ask for input on the type for `x` (one value only):
+
+```{r formatdefault, results='hide'}
+# get the default format type for all files
+# dFormat <- getDefaultTypes(myfiles, checkFormats = TRUE)
+# At the moment no function is available to check 
+# dput(dFormat, "./Data/default_formats_.R")
+dFormat <- dget("./Data/default_formats_.R")
+```
+  
+
+```
+Barone et al. 2002
+      V1                                                   V2               V3             
+ [1,]                                                      (n = 0)          (n = 0)        
+ [2,] Mean age/range                                       75 ± 10 (59-96)  74 ± 11 (56-91)
+ [3,] Gender (male/female)                                 11/9             22/18          
+ [4,] Diabetes mellitus                                    6 (30)           5 (13)         
+ [5,] Hypertension                                         11 (55)          13 (33)        
+ [6,] Heart disease                                        7 (35)           11 (28)        
+ [7,] Variable (unmatched)                                                                 
+ [8,] Medical clearance                                    15 (75)          27 (68)        
+ [9,] Emergency surgery                                    3 (15)           13 (33)        
+[10,] ASA classification                                   3.0              2.8            
+[11,] Operative duration (minutes)                         124 ± 74         124 ± 46       
+[12,] Estimated blood loss (mL)                            292 ± 714        241 ± 289      
+[13,] Intravenous fluids given in the operating room (mL)  1338 ± 1352      1447 ± 1221    
+
+Is this a frequency (press 1), mean (2) or a percentage (3)?
+```
+
+### Tables without appropriate subject numbers
+
+At the top of a column there is usually an indicator of the number of subjects within a group
+ (mostly expressed like `(N = 459)`).
+However, sometimes this `N` is missing. We used a [function](https://github.com/tkappen/recodePDFtable/blob/master/meanFunctions/weightedMean_functions.R)
+ for that to prompt the user for missing `Ns`. The output is again written to a file for consistency.
+
+```{r getNull, results='hide'}
+# Fill in the missing N = in tables
+#
+# missingN <- fillNnull(myfiles)
+# dput(missingN, "./Data/missing_Ns.R")
+missingN <- dget("./Data/missing_Ns.R")
+```
+
+### Changing some default cell types
+
+Some manual changes had to be made to the formatting of the data, because
+the default cell type was not appropriate, or some percentages are missing, because only 
+frequencies are reported.
+
+[Change cell types for format](https://github.com/tkappen/IOHReviewReadPDFs/blob/master/Data/changeFormat_tables.R)
+
+[Calculate missing percentages](https://github.com/tkappen/IOHReviewReadPDFs/blob/master/Data/calculate_missing_Percentages.R)
+
+
+```{r weightTables, results='hide', echo=FALSE}
+# Get all weighted tables 
+# weightTables(mynumeric, missingN)
+# or
+mywtdtables <- weightTables(myfiles, missingN, types = dFormat)
+
+# get Formatted tables
+myformatted <- formatTables(mywtdtables, dFormat)
+
+# Run script to make custom changes to specific lines
+# within dFormat tables
+source("./Data/changeFormat_tables.R")
+#  Renew weighted and formatted tables
+mywtdtables <- weightTables(myfiles, missingN, types = dFormat)
+myformatted <- formatTables(mywtdtables, dFormat)
+
+# Run script to calculate missing percentages for some tables
+# It also outputs dFormat2, because dFormat should still be used for 
+# weighting tables
+source("./Data/calculate_missing_Percentages.R")
+myformatted <- formatTables(mywtdtables, dFormat2)
+```
+
+### Calculate and format summary data
+
+After all the formats have been adjusted, we now need to calculate weighted means and sums. 
+In addition, appropriate formatting is applied and converted back to a formatted table
+ (although it is possible to extract only the numerical values as well).
+
+[Weighing functions](https://github.com/tkappen/recodePDFtable/blob/master/meanFunctions/weightedMean_functions.R)
+
+And the result:
+
+![Sun et al.](https://github.com/tkappen/IOHReviewReadPDFs/blob/master/Images/Sun%20et%20al%20-%20Table%201.png)
+
+```{r getResult}
+formatTables(mywtdtables, dFormat2, formatonly=TRUE)[[26]]
+```
+
+### Writing to datasets
+
+I did not do the restructuring of all tables into a single table with code, because it would require
+all kinds of classifications of the variables (which variables across different tables are the same).
+So I simply exported the formatted tables and did the rest manually.
+
+```
+write.multi.csv(myresults, directory, FUN = write.csv2)
+
+
+# Write all files into separate named files
+write.multi.csv <- function (x, directory, FUN = write.csv) {
+	FUN <- match.fun(FUN)
+	f <- function (x, d) paste(d, x,".csv", sep="")
+	namelist <- sapply(names(x), f, d = directory)
+	mapply(FUN, x, namelist)
+}
+```
+
+## The final result
+
+![Results](https://github.com/tkappen/IOHReviewReadPDFs/blob/master/Images/Summary%20Baseline%20Data.png)
+
+
+
+

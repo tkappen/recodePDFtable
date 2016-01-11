@@ -14,34 +14,13 @@ encodeList <- function (filelist, baseEncoding = "UTF-8",
 		x
 	}
 
-# Function that reads in multiple datasets
-# With possibility for different encoding schemes
-# And functionality to verify the structure of the data
-read.multi <- function(filelist, FUN = read.csv, 
-	baseEncoding = "unknown", baseFileEncoding = "",
-	altEncoding = "UTF-8", altFileEncoding = "",
-	settoEncode = NA, settoFileEncode = NA, 
-	listStruct = NA, row.names, ...) {
-		if (!is.character(filelist)) stop("a character vector argument
-			for 'filelist' expected")
-		enc <- encodeList(filelist, baseEncoding, 
-			altEncoding, settoEncode)
-		fileenc <- encodeList(filelist, baseFileEncoding, 
-			altFileEncoding, settoFileEncode)
-		data <- mapply(tableRead, file = filelist, 
-			enc = enc, fileenc = fileenc, 
-			tblStruct = listStruct, SIMPLIFY = TRUE, ...)	
-		class(data) <- "tableList"
-		if(is.character(row.names)) {
-			attr(data, "dimnames")[[2]] <- row.names
-		}
-		data	
-	}
-
-
-
-
 # Read and possibly verify the structure of the data
+# checkData = TRUE means that R will prompt for input on
+# several characteristics of each table.
+# startCol = TRUE will prompt to indicate the first
+# column with data.
+# sub1000 = TRUE will prompt to indicate which tables
+# use a comma as a thousands separator
 tableRead <- function(file, FUN = read.csv,
 		enc = "unknown", fileenc = "", colClasses = "character",
 		tblStruct = NA, checkData = FALSE,
@@ -129,4 +108,30 @@ readintegerline <- function(x) {
 	}
 	return(as.integer(n))
 }
+
+# Function that reads in multiple datasets
+# With possibility for different encoding schemes
+# And functionality to verify the structure of the data
+read.multi <- function(filelist, FUN = read.csv, 
+	baseEncoding = "unknown", baseFileEncoding = "",
+	altEncoding = "UTF-8", altFileEncoding = "",
+	settoEncode = NA, settoFileEncode = NA, 
+	listStruct = NA, row.names, ...) {
+		if (!is.character(filelist)) stop("a character vector argument
+			for 'filelist' expected")
+		enc <- encodeList(filelist, baseEncoding, 
+			altEncoding, settoEncode)
+		fileenc <- encodeList(filelist, baseFileEncoding, 
+			altFileEncoding, settoFileEncode)
+		data <- mapply(tableRead, file = filelist, 
+			enc = enc, fileenc = fileenc, 
+			tblStruct = listStruct, SIMPLIFY = TRUE, ...)	
+		class(data) <- "tableList"
+		if(is.character(row.names)) {
+			attr(data, "dimnames")[[2]] <- row.names
+		}
+		data	
+	}
+
+
 
