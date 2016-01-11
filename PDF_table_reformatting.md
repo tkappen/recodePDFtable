@@ -37,11 +37,11 @@ files_full
 ##  [5] "./Data extracts/tabula-2007 - Clinical Journal of the American Society of Nephrology - Thakar et al.csv"
 ##  [6] "./Data extracts/tabula-2007 - Tallgren et al.csv"                                                       
 ##  [7] "./Data extracts/tabula-2008 - Journal of Korean Neurosurgical Society - Chong et al.csv"                
-##  [8] "./Data extracts/tabula-2009 - Acta anaesthesiologica Scandinavica - Taffé et al.csv"                    
+##  [8] "./Data extracts/tabula-2009 - Acta anaesthesiologica Scandinavica - TaffÃ© et al.csv"                    
 ##  [9] "./Data extracts/tabula-2009 - Scandinavian Cardiovascular Journal - Nakamura et al.csv"                 
 ## [10] "./Data extracts/tabula-2009 Bijker et al.csv"                                                           
 ## [11] "./Data extracts/tabula-2009 Kheterpal et al.csv"                                                        
-## [12] "./Data extracts/tabula-2011 - British Journal of Anaesthesia - Sabaté et al.csv"                        
+## [12] "./Data extracts/tabula-2011 - British Journal of Anaesthesia - SabatÃ© et al.csv"                        
 ## [13] "./Data extracts/tabula-2011 - Journal of anesthesia - Tassoudis et al.csv"                              
 ## [14] "./Data extracts/tabula-2011 - Journal of International Medical Research - Franck et al.csv"             
 ## [15] "./Data extracts/tabula-2011 - Siepe et al.csv"                                                          
@@ -107,13 +107,13 @@ myfiles[1,2:3]
 ##       V1                    V2           V3         
 ##  [1,] "N "                  "56 (61%) "  "36 (39%)" 
 ##  [2,] "Sex (M/F) "          "29/27 "     "19/17"    
-##  [3,] "Age (years) "        "46±13 "     "41±16"    
-##  [4,] "Urea (mg/dL) "       "39±28 "     "27±11"    
-##  [5,] "Creatinine (mg/dL) " "1.16±0.54 " "0.87±0.27"
-##  [6,] "Potassium (mEq/L) "  "4.3±0.6 "   "3.9±0.3"  
-##  [7,] "Sodium (mEq/L) "     "136±7 "     "137±5"    
-##  [8,] "Albumin (g/dL) "     "3.3±0.1 "   "3.3±0.1"  
-##  [9,] "Bilirubin (mg/dL) "  "5.8±1.1 "   "2.7±0.9"  
+##  [3,] "Age (years) "        "46Â±13 "     "41Â±16"    
+##  [4,] "Urea (mg/dL) "       "39Â±28 "     "27Â±11"    
+##  [5,] "Creatinine (mg/dL) " "1.16Â±0.54 " "0.87Â±0.27"
+##  [6,] "Potassium (mEq/L) "  "4.3Â±0.6 "   "3.9Â±0.3"  
+##  [7,] "Sodium (mEq/L) "     "136Â±7 "     "137Â±5"    
+##  [8,] "Albumin (g/dL) "     "3.3Â±0.1 "   "3.3Â±0.1"  
+##  [9,] "Bilirubin (mg/dL) "  "5.8Â±1.1 "   "2.7Â±0.9"  
 ## [10,] "Ascites "            "41 (73%) "  "22 (61%)" 
 ## [11,] "Encephalopathy "     "21 (38%) "  "11 (31%)" 
 ## [12,] "Variceal bleeding "  "21 (38%) "  "14 (39%)" 
@@ -338,7 +338,7 @@ grepTableSet(myfiles)[[15]]
 ```
 ## $V2
 ## $V2$y.matrix
-##        x[%] (SD_x)  (x%) x_(x[%]) x_(x)_abc   x±x  x__x x_(x-x) x_x-x
+##        x[%] (SD_x)  (x%) x_(x[%]) x_(x)_abc   xÂ±x  x__x x_(x-x) x_x-x
 ##  [1,] FALSE  FALSE FALSE    FALSE     FALSE FALSE FALSE   FALSE FALSE
 ##  [2,] FALSE  FALSE FALSE    FALSE     FALSE FALSE  TRUE   FALSE FALSE
 ##  [3,] FALSE  FALSE FALSE     TRUE     FALSE FALSE FALSE   FALSE FALSE
@@ -407,7 +407,7 @@ grepTableSet(myfiles)[[15]]
 ## 
 ## $V3
 ## $V3$y.matrix
-##        x[%] (SD_x)  (x%) x_(x[%]) x_(x)_abc   x±x  x__x x_(x-x) x_x-x
+##        x[%] (SD_x)  (x%) x_(x[%]) x_(x)_abc   xÂ±x  x__x x_(x-x) x_x-x
 ##  [1,] FALSE  FALSE FALSE    FALSE     FALSE FALSE FALSE   FALSE FALSE
 ##  [2,] FALSE  FALSE FALSE    FALSE     FALSE FALSE  TRUE   FALSE FALSE
 ##  [3,] FALSE  FALSE FALSE     TRUE     FALSE FALSE FALSE   FALSE FALSE
@@ -552,7 +552,7 @@ tableGrepNum(myfiles)[[1]]
 ## $V2
 ##                                                                     x
 ##                                                               (n = 0)
-## Mean age/range                                       75 ± 10 (59-96) 
+## Mean age/range                                       75 Â± 10 (59-96) 
 ## Gender (male/female)                                            11/9 
 ## Diabetes mellitus                                             6 (30) 
 ## Hypertension                                                 11 (55) 
@@ -561,9 +561,9 @@ tableGrepNum(myfiles)[[1]]
 ## Medical clearance                                            15 (75) 
 ## Emergency surgery                                             3 (15) 
 ## ASA classification                                               3.0 
-## Operative duration (minutes)                                124 ± 74 
-## Estimated blood loss (mL)                                  292 ± 714 
-## Intravenous fluids given in the operating room (mL)      1338 ± 1352 
+## Operative duration (minutes)                                124 Â± 74 
+## Estimated blood loss (mL)                                  292 Â± 714 
+## Intravenous fluids given in the operating room (mL)      1338 Â± 1352 
 ##                                                      pattern1 pattern2
 ##                                                             0       NA
 ## Mean age/range                                             75       NA
@@ -596,7 +596,7 @@ tableGrepNum(myfiles)[[1]]
 ## $V3
 ##                                                                    x
 ##                                                              (n = 0)
-## Mean age/range                                       74 ± 11 (56-91)
+## Mean age/range                                       74 Â± 11 (56-91)
 ## Gender (male/female)                                           22/18
 ## Diabetes mellitus                                             5 (13)
 ## Hypertension                                                 13 (33)
@@ -605,9 +605,9 @@ tableGrepNum(myfiles)[[1]]
 ## Medical clearance                                            27 (68)
 ## Emergency surgery                                            13 (33)
 ## ASA classification                                               2.8
-## Operative duration (minutes)                                124 ± 46
-## Estimated blood loss (mL)                                  241 ± 289
-## Intravenous fluids given in the operating room (mL)      1447 ± 1221
+## Operative duration (minutes)                                124 Â± 46
+## Estimated blood loss (mL)                                  241 Â± 289
+## Intravenous fluids given in the operating room (mL)      1447 Â± 1221
 ##                                                      pattern1 pattern2
 ##                                                           0.0       NA
 ## Mean age/range                                           74.0       NA
@@ -672,7 +672,7 @@ dFormat <- dget("./Data/default_formats_.R")
 Barone et al. 2002
       V1                                                   V2               V3             
  [1,]                                                      (n = 0)          (n = 0)        
- [2,] Mean age/range                                       75 ± 10 (59-96)  74 ± 11 (56-91)
+ [2,] Mean age/range                                       75 Â± 10 (59-96)  74 Â± 11 (56-91)
  [3,] Gender (male/female)                                 11/9             22/18          
  [4,] Diabetes mellitus                                    6 (30)           5 (13)         
  [5,] Hypertension                                         11 (55)          13 (33)        
@@ -681,9 +681,9 @@ Barone et al. 2002
  [8,] Medical clearance                                    15 (75)          27 (68)        
  [9,] Emergency surgery                                    3 (15)           13 (33)        
 [10,] ASA classification                                   3.0              2.8            
-[11,] Operative duration (minutes)                         124 ± 74         124 ± 46       
-[12,] Estimated blood loss (mL)                            292 ± 714        241 ± 289      
-[13,] Intravenous fluids given in the operating room (mL)  1338 ± 1352      1447 ± 1221    
+[11,] Operative duration (minutes)                         124 Â± 74         124 Â± 46       
+[12,] Estimated blood loss (mL)                            292 Â± 714        241 Â± 289      
+[13,] Intravenous fluids given in the operating room (mL)  1338 Â± 1352      1447 Â± 1221    
 
 Is this a frequency (press 1), mean (2) or a percentage (3)?
 ```
@@ -727,7 +727,7 @@ In addition, appropriate formatting is applied and converted back to a formatted
 
 And the result:
 
-![Sun et al.](https://github.com/tkappen/IOHReviewReadPDFs/blob/master/Images/Sun%20et%20al%20-%20Table%201.png)
+![Sun et al.](https://github.com/tkappen/recodePDFtable/blob/master/Images/Sun%20et%20al%20-%20Table%201.png)
 
 
 ```r
@@ -737,7 +737,7 @@ formatTables(mywtdtables, dFormat2, formatonly=TRUE)[[26]]
 ```
 ##                                       y
 ## 1                                  5127
-## Age (yr)                      61.3±14.2
+## Age (yr)                      61.3Â±14.2
 ##  Female                             53%
 ##  Hypertension                       48%
 ## Coronary artery disease             11%
@@ -758,7 +758,7 @@ formatTables(mywtdtables, dFormat2, formatonly=TRUE)[[26]]
 ## ACE inhibitor                       16%
 ##  Angiotensin receptor               11%
 ## blocker                                
-##  ß Blocker                          16%
+##  ÃŸ Blocker                          16%
 ##  Type of surgery                       
 ##  General surgery                    26%
 ## Vascular                            10%
@@ -799,7 +799,7 @@ write.multi.csv <- function (x, directory, FUN = write.csv) {
 
 ## The final result
 
-![Results](https://github.com/tkappen/IOHReviewReadPDFs/blob/master/Images/Summary%20Baseline%20Data.png)
+![Results](https://github.com/tkappen/recodePDFtable/blob/master/Images/Summary%20Baseline%20Data.png)
 
 
 
