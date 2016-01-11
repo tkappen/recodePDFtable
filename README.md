@@ -7,8 +7,7 @@ summarized.
 
 ## Introduction
 
-The review is about the relation between intraoperative low blood pressure or hypotension (IOH).
-In this review we summarize the results of over 30 publication that studied this topic.
+The review is about the relation between intraoperative low blood pressure or hypotension (IOH) and adverse postoperative ouutcomes. In this review we summarize the results of over 30 publication that studied this topic.
 In a review we often assess the quality of the studies and summarize that in a table, 
 and we also summarize the results of the studies. However, we hardly ever 
 provide background information about what kind of subjects were included, i.e. the baseline
